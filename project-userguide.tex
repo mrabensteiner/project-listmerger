@@ -6,7 +6,7 @@
 % 
 %  Created :  20 Feb 2026
 % 
-%  Changed :  20 Feb 2026
+%  Changed :  12 Mar 2026
 % 
 %----------------------------------------------------------------
 
@@ -14,3 +14,32 @@
 \label{chap:userguide}
 
 \TODO{}
+
+
+\section{End Users}
+
+End users can switch between separated list via tabs, or an more narrow
+screens with a select box. Items can be dragged and dropped from one
+list on the right to the mergelist on the left. A item is inserted at
+the location where it is dropped. The move all button can be used to
+move all exisitng items of a list to the merged list.
+
+By dragging one item over another in the mergelist, those items can be
+merged. With the drag handle on the right 
+
+
+\section{Developers}
+
+The code itself is written in pure TypeScript, without using third party
+libraries. They are only used in the build and development process.
+
+Recurring terms in the development are \uiname{move} and \uiname{merge}.
+Moving describes the process of a transfering an item from A merged item
+always consists of two predecessors. They are either taken from the
+mergelist (merged or moved), or directly taken from the evaluators list.
+The origin is always tracked, independet wheter The differentiation
+between moved and origin is done to have a clean and reconstructive
+merging history. Once saved, the items are 
+
+When saving, the order of the merged elements is taken from the list,
+while the data about merged is stored in an array.

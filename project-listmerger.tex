@@ -14,3 +14,17 @@
 \label{chap:listmerger}
 
 \TODO{}
+
+
+\section{History (Undo/Redo)}
+
+An important feature and affordance of this component is the history
+tracking. With the \uiname{Undo} and \uiname{Redo} buttons, the user can
+jump 
+
+
+The history is based on a history and a future array. When clicking
+undo/redo, a history item is moved from history to future, or vice
+versa. A history item consists of a keyword for the action, and three
+parameters. The parameters are strings, and can be IDs, or positions,
+depending of the context of the merge keyword.
