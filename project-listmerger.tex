@@ -16,6 +16,60 @@
 \TODO{}
 
 
+
+\section{Frameworks}
+
+
+\subsection{Modern JavaScript}
+% Node.js
+% jQuery
+% selectors
+% event handling
+\parencite{shukla-jsfullstack}
+
+
+
+
+\subsection{JavaScript Package Managers}
+
+The node package manager (NPM) was introduced in 2009, to make the
+handling with node modules in the development process and their
+publishment among developers more convenient. It is an open source
+project and now in the hands of GitHub. \cite{npm-website}
+
+% Yarn
+
+PNPM (performant NPM) introduces a more performant approach for package
+managing than NPM \cite{pnpm-website}. Instead of downloading and
+storing dependencies for every project on its own, they are managed
+globally on the system, and symbolic links are created from the project
+to the main storage. That saves time and storage space. Further, PNPM is
+capable of managing different versions of Node. For other package
+managers, a separate Node Version Manager is needed. Disadvantages arise
+when multiple disks are used on a system, as the symlinks used by PNPM
+are not capable of that.
+
+To measure the popularity of package managers, \textcite{maj-article}
+discusses different ways to count the usage. Different ways of downloads
+have the problem of different sources, and packager managers with more
+frequent updates will have higher download counts. The observation of
+the most popular GitHub repositories is considered a meaningful
+measurement. According to the last iteration \cite{maj-repository} and
+compared with the last three years, NPM is steadily used in about two
+third of projects. The usage of Yarn classic has decreased from 29 \% to
+18 \% over the same time frame. PNPM has a stagnant share of about 6 \%.
+
+PNPM is used in this project to combine its advantages in speed and
+storage performance with 
+
+
+
+
+\subsection{GitHub Pages}
+
+
+
+
 \section{History (Undo/Redo)}
 
 An important feature and affordance of this component is the history
