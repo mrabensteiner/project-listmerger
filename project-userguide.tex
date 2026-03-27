@@ -6,7 +6,7 @@
 % 
 %  Created :  20 Feb 2026
 % 
-%  Changed :  12 Mar 2026
+%  Changed :  27 Mar 2026
 % 
 %----------------------------------------------------------------
 
@@ -22,7 +22,9 @@ End users can switch between separated list via tabs, or on more narrow
 screens with a select box. Items can be dragged and dropped from one
 list on the right to the mergelist on the left. An item is inserted at
 the location where it is dropped. The \uiname{Move All} button can be
-used to move all existing items of a list to the merged list.
+used to move all existing items of a list to the merged list. The
+appearance of items in the list, the info dialog, and the merge dialog
+is dependent on the individual implementation.
 
 By dragging one item over another in the mergelist, those items can be
 merged. With the drag handle on the right, they can be rearranged.
@@ -31,31 +33,108 @@ The behaviour of the \uiname{Save} button is given by the individual
 implementation.
 
 
+
+
+
+
+
 \section{Implementors}
-This section addresses to those that want to include the listmerger in a
+
+This section addresses to those that want to include the ListMerger in a
 larger software project. To initialise a page with lists, the
-\fname{init.init()} function needs to be called. The parameters contain
+\vname{init.init()} function needs to be called. The parameters contain
 an overall HTML id, the ids for the \uiname{Undo} and \uiname{Redo}
-buttons, and a function that can be called when the \uiname{Save} button
-is clicked. This function is then called with an array of moved, and
-merged items.
+buttons, a function that can be called when the \uiname{Save} button is
+clicked, an items object, and several strings for HTML templates. A full
+example of a configuration can be seen in the \fname{example/main.js}
+file.
+
+Items have to be handed over in an object that needs to contain at least
+a \vname{merged} key and an \vname{originlists} key. The first can be an
+empty array, or contain items. The second one needs to be filled with
+the lists as objects with some metadata (\vname{id}, \vname{name}, etc.)
+and an \vname{items} key, which also contains an array of items, as seen
+in Listing~\ref{list:itemslist}.
+
+
+\begin{samepage}
+\begin{lstlisting}[%
+  float=tp,
+  aboveskip=\floatsep,
+  belowskip=\floatsep,
+  xleftmargin=0cm,              % no extra margins for floats
+  xrightmargin=0cm,             % no extra margins for floats
+  basicstyle=\footnotesize\ttfamily,
+  frame=shadowbox,
+  numbers=left,
+  language=JavaScript,
+  label=list:itemslist,
+  caption={[JSON Item Lists]%
+Example of an initialising object for items. The items in \vname{merged} are rendered to the \uiname{mergelist}, \vname{originlists} are constructed as lists with the base items.
+},
+]
+{
+  "merged": [],
+  "originlists": [
+    {
+      "id": "eval1",
+      "name": "List 1",
+      "items": [
+        {
+          "id": "li1it1",
+          "title": "Item 1",
+          "author": "Martin Rabensteiner",
+          "category": "Category 1",
+          "images": [
+            "images/screenshot1.png",
+            "images/screenshot2.png"
+          ],
+          "description": "This is the first item in the list."
+        }
+      ]
+    }
+  ]
+}
+
+\end{lstlisting}
+\end{samepage}
+
+An item needs to have at least an \vname{id}, this id is also used as id
+in the HTML DOM. The other keys are optional and need to be included
+depending on whether they are needed in the user-defined templates.
+Arrays (like images) are always merged together.
+
+Templates define how the items appear in the lists
+(\vname{item_template}), their info modals (\vname{dialog_template}),
+and the form to merge two items (\vname{merge_template}). In the merge
+form, the \vname{name} attribute needs to be ident with the keys used in
+an item. A callback function can be handed over to process the data
+further, for example to store it in a database. This function is then
+called with an array of moved, and merged items. In the example, the
+data just is written to the JavaScript console.
+
+
+
 
 
 \section{Developers}
 
-The code itself is written in pure TypeScript, without using third party
-libraries. They are only used in the build and development process.
+This section describes the use of this module for developers, using this
+plugin as dependency on another project. The code itself is written in
+pure TypeScript. Almost all third-party librariers are only used in the
+build and development process. Only the Mustache package is used to
+render templates.
 
 Recurring terms in the development are \uiname{move} and \uiname{merge}.
 Moving describes the process of a transferring an item from A merged
 item always consists of two predecessors. They are either taken from the
-mergelist (merged or moved), or directly taken from the evaluators list.
-The origin is always tracked, independent whether The differentiation
-between moved and origin is done, to have a clean and reconstructive
-merging history.
+\uiname{mergelist} (merged or moved), or directly taken from the
+evaluators list. The origin is always tracked, independent whether The
+differentiation between moved and origin is done, to have a clean and
+reconstructive merging history. When saving, the order of the merged
+elements is taken from the list, while the data about merged is stored
+in an array. 
 
-When saving, the order of the merged elements is taken from the list,
-while the data about merged is stored in an array.
 
 \subsection{Files}
 
