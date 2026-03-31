@@ -1,0 +1,89 @@
+%----------------------------------------------------------------
+%
+%  File    :  project-guide-libuser.tex
+%
+%  Author  :  Martin Rabensteiner
+% 
+%  Created :  31 Feb 2026
+% 
+%  Changed :  31 Mar 2026
+% 
+%----------------------------------------------------------------
+
+\chapter{Library User Guide}
+\label{chap:libuser}
+
+This section addresses to those that want to include the ListMerger
+library in a larger software project. To initialise a page with lists,
+the \vname{init.init()} function needs to be called. The parameters
+contain an overall HTML id, the ids for the \uiname{Undo} and
+\uiname{Redo} buttons, a function that can be called when the
+\uiname{Save} button is clicked, an items object, and several strings
+for HTML templates. A full example of a configuration can be seen in the
+\fname{example/main.js} file.
+
+Items have to be handed over in an object that needs to contain at least
+a \vname{merged} key and an \vname{originlists} key. The first can be an
+empty array, or contain items. The second one needs to be filled with
+the lists as objects with some metadata (\vname{id}, \vname{name}, etc.)
+and an \vname{items} key, which also contains an array of items, as seen
+in Listing~\ref{list:itemslist}.
+
+
+\begin{samepage}
+\begin{lstlisting}[%
+  float=tp,
+  aboveskip=\floatsep,
+  belowskip=\floatsep,
+  xleftmargin=0cm,              % no extra margins for floats
+  xrightmargin=0cm,             % no extra margins for floats
+  basicstyle=\footnotesize\ttfamily,
+  frame=shadowbox,
+  numbers=left,
+  language=JavaScript,
+  label=list:itemslist,
+  caption={[JSON Item Lists]%
+Example of an initialising object for items. The items in \vname{merged} are rendered to the \uiname{mergelist}, \vname{originlists} are constructed as lists with the base items.
+},
+]
+{
+  "merged": [],
+  "originlists": [
+    {
+      "id": "eval1",
+      "name": "List 1",
+      "items": [
+        {
+          "id": "li1it1",
+          "title": "Item 1",
+          "author": "Martin Rabensteiner",
+          "category": "Category 1",
+          "images": [
+            "images/screenshot1.png",
+            "images/screenshot2.png"
+          ],
+          "description": "This is the first item in the list."
+        }
+      ]
+    }
+  ]
+}
+
+\end{lstlisting}
+\end{samepage}
+
+An item needs to have at least an \vname{id}, this id is also used as id
+in the HTML DOM. The other keys are optional and need to be included
+depending on whether they are needed in the user-defined templates.
+Arrays (like images) are always merged together.
+
+Templates define how the items appear in the lists
+(\vname{item_template}), their info modals (\vname{dialog_template}),
+and the form to merge two items (\vname{merge_template}). In the merge
+form, the \vname{name} attribute needs to be ident with the keys used in
+an item. A callback function can be handed over to process the data
+further, for example to store it in a database. This function is then
+called with an array of moved, and merged items. In the example, the
+data just is written to the JavaScript console.
+
+

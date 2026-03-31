@@ -1,0 +1,104 @@
+%----------------------------------------------------------------
+%
+%  File    :  project-webtech.tex
+%
+%  Author  :  Martin Rabensteiner
+% 
+%  Created :  31 Mar 2026
+% 
+%  Changed :  31 Mar 2026
+% 
+%----------------------------------------------------------------
+
+\chapter{Modern Web Technologies}
+\label{chap:webtech}
+
+\TODO{}
+
+
+
+\section{Modern JavaScript}
+% Node.js
+% jQuery
+% selectors
+% event handling
+\parencite{shukla-jsfullstack}
+
+
+JavaScript is essential in modern web development to make client-site
+computations and modify the Document Object Model (DOM), which describes
+the structure and content of a web page. It was introduced in 1995, soon
+available in all usual browsers, and is and still today an important
+component of them. As dynamic web pages become more and more popular, it
+was even more necessary to manipulate the content directly on the
+client.
+
+With Node.js, it became popular to use JavaScript also as a server-side
+programming language. 
+% Todo Node paragraph
+
+jQuery is a widley-used frontend framework and reached its peak of usage
+on around 78 \% of all websites tracked in 2022 and is steadly
+decreasing since then, with circa 70 \% in March 2026
+\parencite{w3techs-js-statistics}. By time, the outstanding functions of
+jQuery got more and more redundant. Several use cases and
+functionalities were integrated directly in HTML, CSS, or JavaScript.
+For example, the accordion can now be replaced with the
+\elname{details} tag (available since 2020)
+\parencite{mdn-html-details}. JavaScript introduced selector functions
+like \vname{querySelector()}, \vname{querySelectorAll()} and some other
+for HTML element in 2015 \parencite{mdn-js-queryselector}. This made the
+classic jQuery DOM selection with the {\vname{\$()}} function obsolete.
+
+The main browser vendors united already in 2004 as Web Hypertext
+Application Technology Working Group (WHATWG), but the definition of the
+HTML standard was in charge of the World Wide Web Consortium (W3C) for
+some decades. In 2018, the browser vendors became mutinous and only one
+year later, both signed an agreement where W3C is giving the publishment
+authority to the vendors \parencite{cimpanu-whatwg-w3c}. This led to a
+faster drive of innovation, like the improvements mentioned before, and
+standardization among different browsers in terms of compatibility. 
+
+
+
+
+\section{JavaScript Package Managers}
+
+The node package manager (NPM) was introduced in 2009, to make the
+handling with node modules in the development process and their
+publishment among developers more convenient. It is an open source
+project and now in the hands of GitHub \parencite{npm-website}.
+
+% Yarn
+
+PNPM (performant NPM) introduces a more performant approach for package
+managing than NPM \cite{pnpm-website}. Instead of downloading and
+storing dependencies for every project on its own, they are managed
+globally on the system, and symbolic links are created from the project
+to the main storage. That saves time and storage space. Further, PNPM is
+capable of managing different versions of Node. For other package
+managers, a separate Node Version Manager is needed. Disadvantages arise
+when multiple disks are used on a system, as the symlinks used by PNPM
+are not capable of that.
+
+To measure the popularity of package managers, \textcite{maj-article}
+discusses different ways to count the usage. Different ways of downloads
+have the problem of different sources, and packager managers with more
+frequent updates will have higher download counts. The observation of
+the most popular GitHub repositories is considered a meaningful
+measurement. According to the last iteration \cite{maj-repository} and
+compared with the last three years, NPM is steadily used in about two
+third of projects. The usage of Yarn classic has decreased from 29 \% to
+18 \% over the same time frame. PNPM has a stagnant share of about 6 \%.
+
+PNPM is used in this project to combine its advantages in speed and
+storage performance with 
+
+
+
+
+
+
+\section{GitHub Pages}
+\TODO{}
+

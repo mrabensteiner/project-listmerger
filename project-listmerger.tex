@@ -15,101 +15,36 @@
 
 \TODO{}
 
+This section describes the implementation of ListMerger. The code itself
+is written in pure TypeScript. Almost all third-party librariers are
+only used in the build and development process. Only the Mustache
+package is used to render templates.
+
+Recurring terms in the development are \uiname{move} and \uiname{merge}.
+Moving describes the process of a transferring an item from A merged
+item always consists of two predecessors. They are either taken from the
+\uiname{mergelist} (merged or moved), or directly taken from the
+evaluators list. The origin is always tracked, independent whether The
+differentiation between moved and origin is done, to have a clean and
+reconstructive merging history. When saving, the order of the merged
+elements is taken from the list, while the data about merged is stored
+in an array. 
 
 
-\section{Frameworks}
+\section{Files}
 
-\TODO{}
-
-
-
-\subsection{Modern JavaScript}
-% Node.js
-% jQuery
-% selectors
-% event handling
-\parencite{shukla-jsfullstack}
-
-
-JavaScript is essential in modern web development to make client-site
-computations and modify the Document Object Model (DOM), which describes
-the structure and content of a web page. It was introduced in 1995, soon
-available in all usual browsers, and is and still today an important
-component of them. As dynamic web pages become more and more popular, it
-was even more necessary to manipulate the content directly on the
-client.
-
-With Node.js, it became popular to use JavaScript also as a server-side
-programming language. 
-% Todo Node paragraph
-
-jQuery is a widley-used frontend framework and reached its peak of usage
-on around 78 \% of all websites tracked in 2022 and is steadly
-decreasing since then, with circa 70 \% in March 2026
-\parencite{w3techs-js-statistics}. By time, the outstanding functions of
-jQuery got more and more redundant. Several use cases and
-functionalities were integrated directly in HTML, CSS, or JavaScript.
-For example, the accordion can now be replaced with the
-\elname{details} tag (available since 2020)
-\parencite{mdn-html-details}. JavaScript introduced selector functions
-like \vname{querySelector()}, \vname{querySelectorAll()} and some other
-for HTML element in 2015 \parencite{mdn-js-queryselector}. This made the
-classic jQuery DOM selection with the \vname{$()} function obsolete.
-
-The main browser vendors united already in 2004 as Web Hypertext
-Application Technology Working Group (WHATWG), but the definition of the
-HTML standard was in charge of the World Wide Web Consortium (W3C) for
-some decades. In 2018, the browser vendors became mutinous and only one
-year later, both signed an agreement where W3C is giving the publishment
-authority to the vendors \parencite{cimpanu-whatwg-w3c}. This led to a
-faster drive of innovation, like the improvements mentioned before, and
-standardization among different browsers in terms of compatibility. 
-
-
-
-
-\subsection{JavaScript Package Managers}
-
-The node package manager (NPM) was introduced in 2009, to make the
-handling with node modules in the development process and their
-publishment among developers more convenient. It is an open source
-project and now in the hands of GitHub \parencite{npm-website}.
-
-% Yarn
-
-PNPM (performant NPM) introduces a more performant approach for package
-managing than NPM \cite{pnpm-website}. Instead of downloading and
-storing dependencies for every project on its own, they are managed
-globally on the system, and symbolic links are created from the project
-to the main storage. That saves time and storage space. Further, PNPM is
-capable of managing different versions of Node. For other package
-managers, a separate Node Version Manager is needed. Disadvantages arise
-when multiple disks are used on a system, as the symlinks used by PNPM
-are not capable of that.
-
-To measure the popularity of package managers, \textcite{maj-article}
-discusses different ways to count the usage. Different ways of downloads
-have the problem of different sources, and packager managers with more
-frequent updates will have higher download counts. The observation of
-the most popular GitHub repositories is considered a meaningful
-measurement. According to the last iteration \cite{maj-repository} and
-compared with the last three years, NPM is steadily used in about two
-third of projects. The usage of Yarn classic has decreased from 29 \% to
-18 \% over the same time frame. PNPM has a stagnant share of about 6 \%.
-
-PNPM is used in this project to combine its advantages in speed and
-storage performance with 
-
-
-
-
-
-
-\subsection{GitHub Pages}
-\TODO{}
-
-
-
+The TypeScript code is modularised into several files, each serving a
+different purpose. The files are:
+\begin{itemize}
+\item \fname{events.ts}: Initialises all event listeners for buttons
+and drag events, and contains their functions.
+\item \fname{globalvars.ts}: Contains some shared variables used across several files.
+\item \fname{history.ts}: Tracks all actions and recovers them when the \uiname{Undo} or \uiname{Redo} button is pressed.
+\item \fname{index.ts}: Serves only as the interface between the module and the outer implementation.
+\item \fname{init.ts}: Contains the only function callable from the outside.
+\item \fname{transfer.ts}: Handles the transfers between the source lists and the merged list.
+\item \fname{uihelper.ts}: Contains several helper functions to deal with the DOM.
+\end{itemize}
 
 
 
@@ -124,3 +59,11 @@ undo/redo, a history item is moved from history to future, or vice
 versa. A history item consists of a keyword for the action, and three
 parameters. The parameters are strings, and can be IDs, or positions,
 depending on the context of the merge keyword.
+
+
+\section{Initialisation}
+A detailed guide to the initialisation of a ListMerger instance can be
+found in Appendix~\ref{chap:libuser}.
+
+
+
