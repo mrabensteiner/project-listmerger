@@ -48,6 +48,13 @@ and drag events, and contains their functions.
 
 
 
+\section{Data Structure}
+When initialising, a JavaScript object has to be handed over to the
+library in order to build the application.
+% TODO
+More details on this initialisation can be found in Appendix~\ref{chap:libuser}.
+
+
 \section{History (Undo/Redo)}
 
 An important feature and affordance of this component is the history
@@ -60,10 +67,95 @@ versa. A history item consists of a keyword for the action, and three
 parameters. The parameters are strings, and can be IDs, or positions,
 depending on the context of the merge keyword.
 
+% tracking history
+
+
 
 \section{Initialisation}
 A detailed guide to the initialisation of a ListMerger instance can be
 found in Appendix~\ref{chap:libuser}.
 
+
+
+\section{Moving Items}
+Moving 
+
+
+
+\section{Styles}
+The ListMerger itself does not define any styles. These are entirely up
+to the individual implementation. Only the base-structure of the
+application is to a certain extent given by the library itself. The demo
+files can be used as a staring point or completely 
+
+\section{Accessibility Mode}
+WCAG 2.2 Success Criterion 2.5.7 requires alternative methods 
+% Drag and Drop Accesbility
+
+
+To activate this accessibility mode, the
+\vname{toggleAccessibilityMode()} function needs to be called. This can
+be done when initialising the library with a
+\vname{toggleAccessibilityMode(true)} call, to always initalise it in
+the beginning. When toggling is afforded, the function without a
+parameter can be bound to a button.
+
+The accessibility does not affect sizes, colors, or other visual
+properties of the page, since the are entirely depending on the
+implementation on the page and the custom CSS. 
+
+
+
+% drag and drop
+
+% tracking in lists
+
+
+
+
+\section{Templates}
+To make ListMerger as flexible as possible, some element specifications
+are placed in the hands of templates. For this, the Mustache template
+engine is used (see Section~\ref{sec:mustache}). The templates used are
+for three EINSATZZWECKE. Those are:
+\begin{itemize}
+\item \liintro{Item}: The appearance of a single item in the origin
+list, or the merged one.
+
+\item \liintro{Dialog}: When set, a dialog opens when clicking on an
+item.
+
+\item \liintro{Merge}: The middle column when open in the merge screen.
+If the \vname{name} attribute of an Input or TextArea field is ident to
+a value of an item, it is buttons are shown to add the value 
+\end{itemize}
+
+
+
+
+\section{Icons}
+
+Especially the merging icon made it necessary to work out custom icons for this project. The icons were initally drafted in Inkscape and the resulting SVG files manually revised and improved. All icons base on a 50 x 50 viewbox. Strokes have usually a width of 12 and a round linejoin. All icons are listed in Table~\ref{tab:icons}. The iconset does not have to be used, but can also be replaced or 
+
+
+\begin{table}[tp]
+\tablerowstretch
+\rowcolors{2}{}{tablerowcolour}
+\centering
+\begin{footnotesize}
+\begin{tabularx}{\linewidth}
+{>{\leavevmode\kern-\tabcolsep}m{2cm}lY<{\kern-\tabcolsep}}
+\toprule
+\textbf{Icon} & \textbf{Filename} & \textbf{Description} \\
+\midrule
+\includegraphics[height=2cm]{icons/save} & \fname{save.svg} & Save the current state. \\
+% TODO
+\bottomrule
+\end{tabularx}
+\end{footnotesize}
+\caption[Icons]%
+{Overview of icons made for and used within the library.}
+\label{tab:icons}
+\end{table}
 
 
