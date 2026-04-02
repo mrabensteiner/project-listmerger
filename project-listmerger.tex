@@ -117,7 +117,7 @@ implementation on the page and the custom CSS.
 To make ListMerger as flexible as possible, some element specifications
 are placed in the hands of templates. For this, the Mustache template
 engine is used (see Section~\ref{sec:mustache}). The templates used are
-for three EINSATZZWECKE. Those are:
+for three parts. Those are:
 \begin{itemize}
 \item \liintro{Item}: The appearance of a single item in the origin
 list, or the merged one.
@@ -130,6 +130,112 @@ If the \vname{name} attribute of an Input or TextArea field is ident to
 a value of an item, it is buttons are shown to add the value 
 \end{itemize}
 
+
+
+
+
+\section{Tab Bar}
+
+\begin{samepage}
+\begin{lstlisting}[%
+float=tp,
+aboveskip=\floatsep,
+belowskip=\floatsep,
+xleftmargin=0cm,              % no extra margins for floats
+xrightmargin=0cm,             % no extra margins for floats
+basicstyle=\footnotesize\ttfamily,
+frame=shadowbox,
+numbers=left,
+language=CSS,
+label=list:tabbarcss,
+caption={[Tab Bar CSS]%
+The minimal CSS styling to use the \elname{details} element and its
+children as a tab bar.
+},
+]
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+details {
+  display: contents;
+}
+
+details[open]::details-content {
+  display: contents;
+}
+
+summary {
+  order: 0;
+}
+
+section {
+  order: 1;
+  width: 100%;
+}
+\end{lstlisting}
+\end{samepage}
+
+
+For a long time, it was necessary to use JavaScript event listeners for
+tab bars in the web. By adding click event listeners to the title, the
+appearance of the content below in that way can be controlled. The
+\elname{details} HTML element and some CSS adjustments make it possible
+to have tab bars without JavaScript.
+
+The \elname{details} element serves as a container for one item. On
+\elname{summary} element is needed as a child, which is represents the
+title. If no such title element is present, the total is
+\uiname{Details}. Per default, a small triangle on the left indicates
+the open/closed status of the content. This status is toggled by
+clicking on the \elname{summary} element. The content does not
+necessarly have to be an element and can also be plain text. To have a
+clear structure, it is still advisable to have an element to give the
+content a better structure, for example with a \elname{section} element.
+With the \vname{open} attribute, the fold out of \elname{details} can be
+controlled. The \vname{name} attribute can be used to only open one
+\elname{details} box when having several instances.
+
+The original purpose of this element is to build Accordions. To use it
+for tab bars, some CSS properties need to be applied. These properties
+include:
+\begin{itemize}
+\item \liintro{\elname{container} as flexbox}: This ensure to have the
+elements next to each in horizontal alignment.
+
+\item \liintro{\elname{section} with full-width (100\%)}: Below the flex
+container, the summaries should have only as much width as they need,
+but the section below should span across the whole width to break in a
+new line.
+
+\item \liintro{Display details as content}: The section would be shown
+right next to the summary, but this display option shifts it to the end.
+
+\item \liintro{Display open details pseudo element as content}: This
+pseudo element 
+
+\item \liintro{Order of summary and section}: Setting the order for all
+summary items to 0 and all section items to 1, clusters the summary
+items all at the top and shows the active section element below.
+\end{itemize}
+
+The minimal CSS to reach this appearance in shown in
+Listing~\ref{list:tabbarcss}. Additionaly to that, the tabs are also
+styling with some basic CSS, including, colors, borders,
+border-roundings, margins, paddings, and the cursor, as seen in
+Figure~\ref{}.
+
+
+% Responsive Tabbar
+However, to maintain responsiveness the solution in ListMerger still
+uses JavaScript to transform the bar of tabs in a selection box on
+smaller screens or with longer titles.  A \elname{select} box holds the
+titles as values and the order as values. The value of the box needs to
+be tracked and updated as well when the open tab changes. It also needs
+to update when elements are called with a hash in the URL.
+
+% observer
 
 
 
