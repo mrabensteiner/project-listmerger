@@ -6,15 +6,43 @@
 % 
 %  Created :  20 Feb 2026
 % 
-%  Changed :  21 Mar 2026
+%  Changed :  13 Mar 2026
 % 
 %----------------------------------------------------------------
 
 \chapter{List Merging}
 \label{chap:listmerging}
 
-This chapter covers use cases and implementation examples of merged
-lists.
+List merging as a term describes the process to merge the items of
+several lists into one aggregated list. This chapter covers use cases
+and the affordance of list merging. Further, implementation examples and
+related work is described.
+
+
+\section{Acquisition Lists}
+Different departments or employees can enter their needs and wishes for
+supplies. An acquisition manager has then an overview of all wishes.
+Identical or similar items can be combined and the quantity of the
+concerning item increased.
+
+\section{Recipes}
+Recipes would be use case where similar items in different lists would
+be beneficial and desirable. The origin lists are for recipes selected
+by the prospective cook. In the merged list, the needed or the already
+available ingredients can be gathered. This highlights overlapping
+ingredients in recipes and helps to depict which recipes can be cooked
+with the available ones or which ones need to be bought. A sketch of this example can be seen in Figure~\ref{fig:recipes}.
+
+\begin{figure}[tp]
+\centering
+\includegraphics[frame,keepaspectratio,width=\linewidth,height=\halfh]
+{images/recipes.pdf}
+\caption[Sketch of a Recipe Overview]{%
+In this example, the ingredients of recipes that are already to hand can
+be put on the merge list, to emphasise ingredients that need to be
+bought first.}
+\label{fig:recipes}
+\end{figure}
 
 \section{Heuristic Evaluations}
 The heuristic evaluation is a form of usability inspection, first
@@ -38,19 +66,45 @@ report.
 
 
 
-\section{Acquisition Lists}
-Different departments or employees can enter their needs and wishes for
-supplies. An acquisition manager has then an overview of all wishes.
-Identical or similar items can be combined and the quantity of the
-concerning item increased.
+\section{Related Work}
+For the last mentioned application case, \textcite{loitzl-hem}
+introduces within the Heuristic Evaluation Manager (HEM) a merging
+interface to merge usability issues, as seen in
+Figure~\ref{fig:hem-merging}. Findings can be selected for merging with
+the \uiname{+} button. Red indicates currently selected findings.
+Darkgrey findings are already added to the merge list. This is done with
+inline JavaScript calls by pressing a button, and without drag-and-drop
+functions.
 
+\begin{figure}[tp]
+\centering
+\includegraphics[frame,keepaspectratio,width=\linewidth,height=\halfh]
+{images/hem-merging-i.png}
+\caption[HEM Findings Merger]{%
+The findings merger in HEM: Findings can be selected for merging with
+the \uiname{+} button. Red indicates currently selected findings.
+Darkgrey findings are already added to the merge list.
+\imgcredit{Screenshot by Martin Rabensteiner.}
+}
+\label{fig:hem-merging}
+\end{figure}
 
+The functionality of Kanban boards, like the issue tracking app Heurio
+in Figure~\ref{fig} seems similar. But the columns represent different stages or filters, and the possibility to merge is not designated.
 
-\section{Recipes}
-Recipes would be use case where similar items in different lists would
-be beneficial and desirable. The origin lists are for recipes selected
-by the prospective cook. In the merged list, the needed or the already
-available ingredients can be gathered. This highlights overlapping
-ingredients in recipes and helps to depict which recipes can be cooked
-with the available ones or which ones need to be bought.
+\begin{figure}[tp]
+\centering
+\includegraphics[frame,keepaspectratio,width=\linewidth,height=\halfh]
+{images/online/heurio-board-i.png}
+\caption[Heurio: Kanban board]{%
+Usability findings in Heurio are by default organised as a Kanban board
+and sorted by severity.
+\imgcredit{Screenshot by Martin Rabensteiner.}
+}
+\label{fig:tool-heurio-board}
+\end{figure}
 
+By researching, no equivalent libray, nor applications with dynamic,
+visual merging could be found. Therefore it was decided to create
+ListMerger with its implementation and functionality further described
+in the following chapters.
