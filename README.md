@@ -11,7 +11,7 @@ Code Repository: https://github.com/mrabensteiner/listmerger
 
 ListMerger is a JavaScript library for list merging. A use case for this is a heuristic evaluation, where the findings of multiple evaluators are aggregated into a merged list. This repository is part of a Master's project, along with a [Survey of Heuristic Evaluation
 Tools](https://github.com/mrabensteiner/survey-hetools/) and an upcoming
-Master's Thesis. The code can be found in the [Code Repository](https://github.com/mrabensteiner/listmerger/) and a working example [here](https://mrabensteiner.github.com/listmerger/).
+Master's Thesis. The code can be found in the [Code Repository](https://github.com/mrabensteiner/listmerger/) and a working example [here](https://mrabensteiner.github.io/listmerger/).
 
 ## Build
 ```
