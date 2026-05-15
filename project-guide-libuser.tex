@@ -6,14 +6,14 @@
 % 
 %  Created :  31 Feb 2026
 % 
-%  Changed :  31 Mar 2026
+%  Changed :  15 May 2026
 % 
 %----------------------------------------------------------------
 
 \chapter{Library User Guide}
 \label{chap:libuser}
 
-This section addresses to those that want to include the ListMerger
+This section addresses to those that want to include ListMerger
 library in a larger software project. To initialise a page with lists,
 the \vname{init.init()} function needs to be called. The parameters
 contain an overall HTML id, the ids for the \uiname{Undo} and
@@ -85,5 +85,51 @@ an item. A callback function can be handed over to process the data
 further, for example to store it in a database. This function is then
 called with an array of moved, and merged items. In the example, the
 data just is written to the JavaScript console.
+
+
+\section{Templating}
+
+\section{Inline Editing}
+Fields can be configured to be editable inline. For text-only fields,
+the \cname{contenteditable} attribute\parencite{mdn-contenteditable}
+should be set to \cname{"plaintext-only"}. Setting it to \cname{"true"}
+is also sufficient for the functionality, but can lead to unexpected
+behaviour when dragging an image over the field.
+
+To use a \elname{select} element for editing, the CSS class
+\cname{selectedit} can be put on a \elname{span} element to replace its
+content. The \elname{span} needs to have some \cname{data-*} attributes
+to build the select box. These attributes are:
+\begin{itemize}
+  \item \cname{data-name}: Is used as \cname{name} for the
+    \elname{select} element and for storing to the item, therefore it
+    should be one of the already set children of the item.
+
+  \item \cname{data-options}: Needs to have the possible options of the
+    select box. It can be either a one-dimensional array, or an object
+    with key-value pairs. If it is an object, the key and values are
+    used as they are, othervise the single values are used for both.
+
+  \item \cname{data-values}: Can be a single value, or comma-separted
+    the selected values. Valid examples are:
+    \begin{itemize}
+      \item \lstinline!1,2,3,4!
+      \item \lstinline!["John", "Max", "Mario"]!
+      \item \lstinline!{"0": "Very Low", "1": "Low", "2": "Medium", "3": "High", "4": "Very High"}!
+    \end{itemize}
+  
+  \item \cname{data-mode}: Per default, the select box is displayed as
+    single select. When the mode is \cname{multiple}, the
+    \cname{multiple} attribute is added to the \elname{select} element
+    as well. Another option for this attribute is \cname{class}, to
+    change the class of this element to a specific mode, for example to
+    represent colors or icons of the current value.
+  
+  \item \cname{data-class}: If the mode is set to \cname{class}, this
+    value is used as CSS class prefix. When the selection is changed,
+    the class consisting of the prefix and the selected value is added
+    to this element. Other classes with this prefix are remove on an
+    input change.
+\end{itemize}
 
 

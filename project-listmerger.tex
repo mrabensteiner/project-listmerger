@@ -6,7 +6,7 @@
 % 
 %  Created :  20 Feb 2026
 % 
-%  Changed :  17 Apr 2026
+%  Changed :  15 May 2026
 % 
 %----------------------------------------------------------------
 
@@ -91,7 +91,7 @@ found in Appendix~\ref{chap:libuser}.
 
 
 \section{Styles}
-The ListMerger itself does not define any styles. These are entirely up
+ListMerger itself does not define any styles. These are entirely up
 to the individual implementation. Only the base-structure of the
 application is to a certain extent given by the library itself. The demo
 files can be used as a staring point or completely 
@@ -113,6 +113,7 @@ files can be used as a staring point or completely
 % properties of the page, since the are entirely depending on the
 % implementation on the page and the custom CSS. 
 
+Another improvement option for accessibility is to make the inline editions (see Section ...) accessible, in the sense that they can also be used without mouseclicks
 
 
 % drag and drop
@@ -286,6 +287,47 @@ the observer an undetermined width and lever its functionality.
 Therefore, the titles are made transparent, paddings removed, and the
 height set to \vname{1px}. This makes it practically invisible, but
 leaves the observer functionality intact.
+
+\begin{figure}[tp]
+\centering
+\includegraphics[frame,keepaspectratio,width=\linewidth,height=\halfh]
+{images/edit-i.png}
+\caption[Item Editing]{%
+Properties can be made editable. A double click replaces the text with a
+select box.
+\imgcredit{Screenshot by Martin Rabensteiner.}
+}
+\label{fig:edit}
+\end{figure}
+
+\begin{figure}[tp]
+\centering
+\includegraphics[frame,keepaspectratio,width=\linewidth,height=\halfh]
+{images/merge-i.png}
+\caption[Merge Item Window]{%
+When merging two items, their properties are compared in a modal and can
+be edited in the middle.
+\imgcredit{Screenshot by Martin Rabensteiner.}
+}
+\label{fig:edit}
+\end{figure}
+
+\begin{figure}[tp]
+\centering
+\includegraphics[frame,keepaspectratio,width=\linewidth,height=\halfh]
+{images/merged-i.png}
+\caption[Merged Item]{%
+Merged items (right) appear greyed out and annotated with a merge icon.
+The merge item (left) contains links to them.
+\imgcredit{Screenshot by Martin Rabensteiner.}
+}
+\label{fig:edit}
+\end{figure}
+
+
+
+
+
 
 
 
