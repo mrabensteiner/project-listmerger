@@ -326,6 +326,23 @@ The merge item (left) contains links to them.
 
 
 
+\section{Items}
+\TODO{}
+
+
+
+
+\section{Merging}
+Merging is initiated by dragging one item over another in the mergelist.
+A dialog opens to compare the two items to merge, as seen in
+Figure~\ref{fig:mergewindow}. The properties are shown to the left and
+to the right. The middle column is for setting the properties of the
+mergeitem. The properties of the left item are taken as default values.
+Values can also be set or appended by clicking on the buttons left and
+right to the fields. The items are only merged after clicking on the
+\uiname{Merge} button. Original items are linked to the merge item and
+vice versa. These connections can be detached.
+
 
 
 
@@ -359,5 +376,31 @@ Save the current state. \\
 {Overview of icons made for and used within the library.}
 \label{tab:icons}
 \end{table}
+
+
+
+
+\section{Unresolved Challenges}
+\label{sec:challenges}
+\TODO{}
+
+\subsection{Cursor Change while Dragging}
+
+\subsection{Flexbox Layout within display: contents}
+
+
+
+\section{Future Work}
+\label{sec:futurework}
+\TODO{}
+
+\subsection{Accessibility}
+One of the main usability affordance of this project is to have a
+drag-and-drop functionality. However, this is a functionality that is
+not in line with accessibility affordance. Some features, like the
+moving of items can already be done only by clicks, but others, like
+merging or arranging can not. A possible implementation could be a
+button for an accessibility, where buttons and menus for those actions
+are shown additional next to items.
 
 
