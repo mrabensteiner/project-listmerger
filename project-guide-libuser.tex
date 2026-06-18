@@ -154,7 +154,63 @@ The selectors of all HTML class names and ids can be set during the
 initilisation. The identifiers, default values, and a short description
 can be seen in Table~\ref{}
 
-\TODO{table identifiers}
+\begin{table}[tp]
+\tablerowstretch
+\rowcolors{2}{}{tablerowcolour}
+\centering
+\begin{footnotesize}
+\begin{tabularx}{\linewidth}
+{>{\leavevmode\kern-\tabcolsep}lm{1cm}lY<{\kern-\tabcolsep}}
+\toprule
+\textbf{identifiers} & \textbf{Type} & \textbf{Default value} & \textbf{Description} \\
+\midrule
+% TODO styling
+PREFIX\_MOVED & Prefix for ID & "moved-" & Prefix that is added to the HTML IDs of moved items in the mergelist. \\
+PREFIX\_MERGED & Prefix for ID & "merged-" & Prefix that is added to the HTML IDs of merged items in the mergelist. \\
+\midrule
+CONTAINER & ID & "listmerger" & Contains the mergelist and container for origin lists. \\
+MERGE\_LIST\_CONTAINER & ID & "mergelist-container" & Is a wrapper for the mergelist and its indicator. \\
+MERGE\_LIST & ID & "mergelist" & Is the mergelist itself. \\
+LIST & Class & "list" & Every list of items. \\
+\midrule
+ITEM & Class & "item" & A single item within a list. \\
+ITEM\_DRAGHANDLE\_ACTIVE & Class & "draghandle-active" & The item is currently dragged with the draghandle. \\
+ITEM\_DRAG\_ACTIVE & Class & "drag-active" & The item is currently dragged itself. \\
+\midrule
+TAB\_CONTAINER & Class & "tab-container" & The outer container for the tabs and the tab select box. \\
+TAB\_BAR & Class & "tabbar" & The innter container for all tabs. \\
+TAB\_NAME & Name attribute & "tabs" & Attribute that is added to the \textbackslash{}elname\{details\} tag of an item. \\
+TAB\_COMPACT & Class & "compact" & When there is not enough space for a tab titles, this class is added to the tab bar. \\
+TAB\_SELECTOR & ID & "detailsselector" & The tab select box shown in the compact state. \\
+\midrule
+HOVER\_DROP & Class & "drop" & The effect added to a list or item, when an item is dragged over it. \\
+ARRANGEBAR & Class & "arrangebar" & The bar shown between two items in the mergelist when rearranging or dragging. \\
+\midrule
+BUTTON\_MOVE & Class & "move" & The button to move one item to the mergelist or back from there to the origin list. \\
+BUTTON\_MOVEALL & Class & "moveall" & The button to move all remaining items of one origin list to the mergelist. \\
+BUTTON\_SAVE & Class & "save" & Save button for the edit dialog (currently not in use and replaced with inline editing). \\
+BUTTON\_CLOSE & Class & "close" & The Button that cancels the merge dialog. \\
+BUTTON\_MERGE & Class & "merge" & The Button that performs the merge after the dialog. \\
+BUTTON\_DETACH & Class & "detach" & Added to merged items and their origin items to unpair the merge. \\
+BUTTON\_DRAGHANDLE & Class & "draghandle" & Identifies the element of the drag handle template. \\
+\midrule
+BUTTON\_UNDO & ID & "undo" & The undo button for the history. \\
+BUTTON\_REDO & ID & "redo" & The redo button for the history. \\
+\midrule
+DIALOG\_MERGE\_CONTAINER & Class & "mergecontainer" & Container within the merge dialog. \\
+\midrule
+TEXT\_BUTTON\_MOVEALL & Text & "Move Remaining" & Shown at every tab. \\
+TEXT\_BUTTON\_MERGE & Text & "Merge" & Shown in the merge dialog. \\
+TEXT\_BUTTON\_CANCEL & Text & "Cancel" & Shown in the merge dialog. \\
+\bottomrule
+\end{tabularx}
+\end{footnotesize}
+\caption[HTML Identifiers]%
+{Identifiers used for HTML, CSS, and JavaScript and their description. They can be set while initialising, or otherwise the default values are used.}
+\label{tab:identifiers}
+\end{table}
+
+
 
 
 \section{Saving}
