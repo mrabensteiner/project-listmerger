@@ -6,7 +6,7 @@
 % 
 %  Created :  20 Feb 2026
 % 
-%  Changed :  15 May 2026
+%  Changed :  19 Jun 2026
 % 
 %----------------------------------------------------------------
 
@@ -122,16 +122,6 @@ Another improvement option for accessibility is to make the inline editions (see
 
 
 
-\section{Cursor Behaviour when Dragging}
-The \fname{event.datatransfer.dropEffect} property in JavaScript defines
-the visual behaviour of the mouse cursor during a drag event
-\parencite{mdn-dropeffect}. While the \fname{cursor} CSS property offers
-a variety of 36 mouse cursors, in interaction with the operating system
-\parencite{mdn-cursor}, this property is not taken into account as soon
-as a drag event is started. The \fname{dropEffect} has offers a
-selection of only four elements, all equivalent to options for the CSS
-property.
-% bug in firefox
 
 
 
@@ -327,7 +317,19 @@ The merge item (left) contains links to them.
 
 
 \section{Items}
-\TODO{}
+Items are created with a \elname{details} element. A classname and a
+\cname{data-role} attribute are added from the predfined selectors. The inner part is defined by a template when initialising. All values that are defined for the item in the \vname{items} object can be used for rendering. Some values are added depending on the current state. These can be:
+\begin{itemize}
+  \item \vname{status}: Moved, merged or mergeitem.
+  \item \vname{parent_id}: Contains the item's ID itself again, to be
+    used in nested templates.
+  \item \vname{mergedfrom}: Is a list of IDs from which the item is
+    merged, applies only to mergeitems.
+  \item \vname{mergedinto}: Contains the ID of the mergeitem, applies
+    only to items that are merged.
+  \item \vname{titleimg}: The first image that has an \vname{active}
+    status that is not negative, applies only to items with images.
+\end{itemize}
 
 
 
@@ -346,29 +348,80 @@ vice versa. These connections can be detached.
 
 
 
+\section{Detaching}
+A detach button or link can be added to mergeitems or items that or
+merged to loosen their connection. All attribute from the mergeitem stay
+the same, except for the connection to the original item to detach. This
+item then appears untouched in the origin list again. Two attributes
+need to be set in order to execute the detach: \vname{data-from}
+contains the ID of the original item, \vname{data-to} contains the ID of
+the mergeitem.
+
+
 
 
 \section{Icons}
-
 Especially the merging icon made it necessary to work out custom icons
-for this project. The icons were initally drafted in Inkscape and the
+for this project. The icons were initially drafted in Inkscape and the
 resulting SVG files manually revised and improved. All icons base on a
-50 x 50 viewbox. Strokes have usually a width of 12 and a round
-linejoin. All icons are listed in Table~\ref{tab:icons}. The iconset
-does not have to be used, but can also be replaced or hidden completely.
+50x50 viewbox. Strokes have usually a width of 12 and a round linejoin.
+All icons are listed in Table~\ref{tab:icons}. The iconset does not have
+to be used, but can also be replaced or hidden completely. All items are
+defined only in CSS stylesheets or templates and therefore not
+obligatory for the library.
+
 \begin{table}[tp]
 \tablerowstretch
 \rowcolors{2}{}{tablerowcolour}
 \centering
 \begin{footnotesize}
 \begin{tabularx}{\linewidth}
-{>{\leavevmode\kern-\tabcolsep}m{2cm}lY<{\kern-\tabcolsep}}
+{>{\leavevmode\kern-\tabcolsep}m{1.2cm}lY<{\kern-\tabcolsep}}
 \toprule
 \textbf{Icon} & \textbf{Filename} & \textbf{Description} \\
 \midrule
-\includegraphics[height=2cm]{icons/save} & \fname{save.svg} &
-Save the current state. \\
-% TODO
+\includegraphics[height=1cm]{icons/caret} & \fname{caret.svg} & Replaces
+the original triangle for \elname{details}. Indicates and controls its
+open status. When opened, the icon is rotated 90 degrees.\\
+%
+\includegraphics[height=1cm]{icons/check} & \fname{check.svg} &
+Used to indicate that an item is added to the mergelist, but not merged. \\
+%
+\includegraphics[height=1cm]{icons/close} & \fname{close.svg} &
+For close buttons in dialogs. \\
+%
+\includegraphics[height=1cm]{icons/detach} & \fname{detach.svg} &
+To detach items from mergeitems or the other way around.\\
+%
+\includegraphics[height=1cm]{icons/dragicon} & \fname{dragicon.svg} &
+Used to rearranged items in the mergelist. Not included in the example.\\
+%
+\includegraphics[height=1cm]{icons/edit} & \fname{edit.svg} &
+Button for editing values. \\
+%
+\includegraphics[height=1cm]{icons/merge} & \fname{merge.svg} &
+Button to merge and also as indicator for items that are merged into another. \\
+%
+\includegraphics[height=1cm]{icons/move} & \fname{move.svg} &
+For moving an item to the mergelist or back. \\
+%
+\includegraphics[height=1cm]{icons/moveall} & \fname{moveall.svg} &
+Move all remaining items to the mergelist. \\
+%
+\includegraphics[height=1cm]{icons/openfile} & \fname{openfile.svg} &
+Open a file as source for lists and items.\\
+%
+\includegraphics[height=1cm]{icons/redo} & \fname{redo.svg} &
+History redo.\\
+%
+\includegraphics[height=1cm]{icons/save} & \fname{save.svg} & 
+Save the current state of all lists. \\
+%
+\includegraphics[height=1cm]{icons/save_orange} & \fname{save_orange.svg} &
+Save the current state of an item when editing.\\
+%
+\includegraphics[height=1cm]{icons/undo} & \fname{undo.svg} &
+History undo.\\
 \bottomrule
 \end{tabularx}
 \end{footnotesize}
@@ -380,11 +433,33 @@ Save the current state. \\
 
 
 
-\section{Unresolved Challenges}
+\section{Challenges}
 \label{sec:challenges}
-\TODO{}
+This section covers some noteworthy challenges during the development
+process, that could not completely be satisfied, or just with some
+workarrounds.
 
-\subsection{Cursor Change while Dragging}
+\section{Cursor Behaviour when Dragging}
+One useful feature idea was that the cursor is different when dragging
+an item, depending on whether the item is approaching to be moved to the
+mergelist (moving cursor) or merged into another item (adding cursor). The
+\fname{event.datatransfer.dropEffect} property in JavaScript defines the
+visual behaviour of the mouse cursor during a drag event
+\parencite{mdn-dropeffect}. While the \fname{cursor} CSS property offers
+a variety of 36 mouse cursors, in interaction with the operating system
+\parencite{mdn-cursor}, this property is not taken into account as soon
+as a drag event is started. The \fname{dropEffect} has offers a
+selection of only four elements, all equivalent to options for the CSS
+property (\vname{copy}, \vname{move}, \vname{link}, \vname{none}).
+
+Mozilla Firefox does currently not support the change of the cursor, as
+long as the concerning event listener is not changed. In the current
+implementation, the event listener is the same for the mergelist and its
+items. Otherwise, the event listener needs to be reassigned every time
+an item is changed. Google Chrome does basically support the change
+during an event, but at some points a \vname{none} cursor is wrongly
+shown.
+
 
 \subsection{Flexbox Layout within display: contents}
 
@@ -403,4 +478,6 @@ merging or arranging can not. A possible implementation could be a
 button for an accessibility, where buttons and menus for those actions
 are shown additional next to items.
 
-
+\subsection{Customisation}
+% variable names
+% todo self :)
