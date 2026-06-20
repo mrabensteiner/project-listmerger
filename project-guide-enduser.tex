@@ -6,48 +6,75 @@
 % 
 %  Created :  20 Feb 2026
 % 
-%  Changed :  15 May 2026
+%  Changed :  18 Jun 2026
 % 
 %----------------------------------------------------------------
 
 \chapter{End User Guide}
 \label{chap:enduser}
 
-End users can switch between separated list via tabs, or on more narrow
-screens with a select box. Items can be dragged and dropped from one
-list on the right to the mergelist on the left. An item is inserted at
-the location where it is dropped. The \uiname{Move All} button can be
-used to move all existing items of a list to the merged list. The
-appearance of items in the list, the info dialog, and the merge dialog
-is dependent on the individual implementation.
+\begin{figure}[tp]
+\centering
+\includegraphics[frame,keepaspectratio,width=\linewidth,height=\halfh]
+{images/full-i.png}
+\caption[ListMerger Example]{%
+An example implementation of ListMerger. On the right are 
+\imgcredit{Screenshot by Martin Rabensteiner.}
+}
+\label{fig:enduser-overview}
+\end{figure}
+
+This chapter serves explanatory notes for end users of this library.
+Note that some procedures and designs described in this chapter may
+differ for the actual implementation in the specific tool. An example
+implementation can be seen in Figure~\ref{fig:enduser-overview}
+
+The main objective of this library is to have a number of lists, the
+\emph{origin lists} on one side (usually right) and an aggregated list
+on the other side (left), the \emph{mergelist}. Users can switch between
+these origin lists via tabs, or on more narrow screens with a select
+box. Items can be dragged and dropped from one list on the right to the
+mergelist on the left. An item is inserted at the location where it is
+dropped. The \uiname{Move Remaining} button can be used to move all
+existing items of a list to the mergelist. The appearance of items in
+the list, their extended view, and the merge dialog are dependent on the
+individual implementation.
 
 By dragging one item over another in the mergelist, those items can be
-merged. With the drag handle on the right, they can be rearranged.
-\uiname{Undo} and \uiname{Redo} let the user jump through the history.
-The behaviour of the \uiname{Save} button is given by the individual
-implementation.
+merged. By dragging items in the mergelist around, they can be
+rearranged. \uiname{Undo} and \uiname{Redo} let the user jump through
+the history.
 
-Next to the tab titles are small numbers that indicate the current state
-of the list. For origin lists, they count how much of items have been
-added or merged into the mergelist out of the total number per list. For
-the mergelist, the indicator shows the total number of items in the
-list, not necessarly how much have been added.
+% Saving
+The behaviour of saving is given by the individual implementation and
+can automatically, or by clicking a \uiname{Save} button. Data is in
+principle stored in the JSON format. When a saved file is opened again,
+it must be noted that the file format has the same version as required
+by the library.
 
+% Editing
+Next to the tab titles can be small numbers to indicate the current
+state of the list. For origin lists, they count how much of items have
+been added or merged into the mergelist out of the total number per
+list. For the mergelist, the indicator shows the total number of items
+in the list, not necessarily how much have been added.
 
-
-\section{Keyboard Shortcuts}
-ListMerger offers some shortcuts to ease the use with a keyboard. These shortcuts are:
-\begin{itemize}
-    \item \liintro{Ctrl + Z}: Undo.
-    \item \liintro{Ctrl + Y}: Redo.
-    \item \liintro{C}: Collapse all details of elements.
-    \item \liintro{M}: Move all remaining elements to the mergelist.
-\end{itemize}
-
-
-\section{Editing Items}
+% Editing
 Properties of items can be edited by clicking on them. Text-only
 properties are then directly editable and saved as soon as the focus is
 changed to another element by mouse or keyboard. More complex
 properties, like select boxes, need a double click to change to editing
 mode.
+
+
+\section{Keyboard Shortcuts}
+ListMerger offers shortcuts to ease the use with a keyboard. These shortcuts are:
+\begin{itemize}
+    \item \liintro{Ctrl + Z}: Undo.
+    \item \liintro{Ctrl + Y}: Redo.
+    \item \liintro{C}: Collapse all \elname{detail} elements.
+    \item \liintro{M}: Move all remaining elements from an origin list
+      to the mergelist.
+    \item \liintro{[1-9]}: Switch the list tabs.
+\end{itemize}
+
