@@ -6,29 +6,64 @@
 % 
 %  Created :  31 Feb 2026
 % 
-%  Changed :  15 May 2026
+%  Changed :  23 Jun 2026
 % 
 %----------------------------------------------------------------
 
 \chapter{Library User Guide}
 \label{chap:libuser}
 
-This section addresses to those that want to include ListMerger
-library in a larger software project. To initialise a page with lists,
-the \vname{init.init()} function needs to be called. The parameters
-contain an overall HTML id, the ids for the \uiname{Undo} and
-\uiname{Redo} buttons, a function that can be called when the
-\uiname{Save} button is clicked, an items object, and several strings
-for HTML templates. A full example of a configuration can be seen in the
-\fname{example/main.js} file.
+This section addresses to library user that want to include the
+ListMerger library in a larger software project. Some general remarks on
+the usage of the library are already conducted in
+Appendix~\ref{chap:enduser}. This chapter is more focused on the
+initalisation.
 
-Items have to be handed over in an object that needs to contain at least
-a \vname{merged} key and an \vname{originlists} key. The first can be an
-empty array, or contain items. The second one needs to be filled with
-the lists as objects with some metadata (\vname{id}, \vname{name}, etc.)
-and an \vname{items} key, which also contains an array of items, as seen
-in Listing~\ref{list:itemslist}.
 
+
+
+
+
+\section{Examples}
+Within the code, a simple and an extended example of implementations are
+delivered and can be found in the \fname{/src/example} folder. The
+simple example (\fname{simple.html} and \fname{simple.js}) demonstrate a
+minimal setup. The extended example (\fname{index.html} and
+\fname{main.js}) is a showcase of nearly all features implemented in the
+library. To ensure the correct functioning of some elements, certain CSS styling
+rules are highly recommended and can be found in \fname{listmerger.css}.
+Further styling recommendations can be found linked in the examples
+(\fname{style.css}).
+
+
+
+
+
+\section{Initialising}
+To initialise the library within an application, the \vname{init()}
+function needs to be called. This function has four parameters:
+\begin{itemize}
+  \item \vname{items}: A data structure of items and lists, further
+    described in Section~\ref{sec:libu-datastructure}
+  \item \vname{templates}: The templates for rendering items, further
+    described in Section~\ref{sec:libu-templates}.
+  \item \vname{selectors}: Identifiers for HTML class names, IDs,
+    attributes, etc., further described in Section~\ref{sec:libu-selectors}.
+  \item \vname{history_callback}: A function that is called when changes
+    are made.
+\end{itemize}
+
+The parameter \vname{items} is the only mandatory one, the others are
+optional. When they are left empty, this results in blank templates,
+standard selectors, respectively an empty function for the callback.
+
+
+
+
+
+
+\section{Data Structure}
+\label{sec:libu-datastructure}
 
 \begin{samepage}
 \begin{lstlisting}[%
@@ -72,87 +107,94 @@ Example of an initialising object for items. The items in \vname{merged} are ren
 \end{lstlisting}
 \end{samepage}
 
-An item needs to have at least an \vname{id}, this id is also used as id
-in the HTML DOM. The other keys are optional and need to be included
+
+
+Items have to be handed over in an object that needs to contain at least
+a \vname{merged} key and an \vname{originlists} key. The first can be an
+empty array, or already contain items. The second one needs to be filled
+with the lists as objects with some metadata (\vname{id}, \vname{name},
+etc.) and an \vname{items} key, which also contains an array of items,
+as seen in Listing~\ref{list:itemslist}.
+
+One item needs to have at least an \vname{id}. This ID is also used as
+ID in the HTML DOM. The other keys are optional and need to be included
 depending on whether they are needed in the user-defined templates.
-Arrays (like images) are always merged together.
+Arrays (like images) are always merged together in the merging process.
 
-Templates define how the items appear in the lists
-(\vname{item_template}), their info modals (\vname{dialog_template}),
-and the form to merge two items (\vname{merge_template}). In the merge
-form, the \vname{name} attribute needs to be ident with the keys used in
-an item. A callback function can be handed over to process the data
-further, for example to store it in a database. This function is then
-called with an array of moved, and merged items. In the example, the
-data just is written to the JavaScript console.
+During runtime, the data is stored in the same format on the stack. When
+finished, it can be suitable to store the data structure as a JSON file,
+or to send it in this format to a REST API. More details about this are
+in Section~\ref{sec:libu-saving}.
 
-\section{Initialising}
-To make the library work, the \cname{init()} function needs to be
-called. Several parameters can be used to adjust HTML classnames or ids.
+
+
+
+
+
 
 \section{Templating}
+\label{sec:libu-templates}
 
-\section{Inline Editing}
-Fields can be configured to be editable inline. For text-only fields,
-the \cname{contenteditable} attribute\parencite{mdn-contenteditable}
-should be set to \cname{"plaintext-only"}. Setting it to \cname{"true"}
-is also sufficient for the functionality, but can lead to unexpected
-behaviour when dragging an image over the field.
-
-To use a \elname{select} element for editing, the CSS class
-\cname{selectedit} can be put on a \elname{span} element to replace its
-content. The \elname{span} needs to have some \cname{data-*} attributes
-to build the select box. These attributes are:
+Templates define how the items appear in the lists. When initialising,
+the \vname{template} parameters is a string-string pair with up to four
+keys. These are:
 \begin{itemize}
-  \item \cname{data-name}: Is used as \cname{name} for the
-    \elname{select} element and for storing to the item, therefore it
-    should be one of the already set children of the item.
-
-  \item \cname{data-options}: Needs to have the possible options of the
-    select box. It can be either a one-dimensional array, or an object
-    with key-value pairs. If it is an object, the key and values are
-    used as they are, othervise the single values are used for both.
-
-  \item \cname{data-values}: Can be a single value, or comma-separted
-    the selected values. Valid examples are:
-    \begin{itemize}
-      \item \lstinline!1,2,3,4!
-      \item \lstinline!["John", "Max", "Mario"]!
-      \item \lstinline!{"0": "Very Low", "1": "Low", "2": "Medium", "3": "High", "4": "Very High"}!
-    \end{itemize}
-  
-  \item \cname{data-mode}: Per default, the select box is displayed as
-    single select. When the mode is \cname{multiple}, the
-    \cname{multiple} attribute is added to the \elname{select} element
-    as well. Another option for this attribute is \cname{class}, to
-    change the class of this element to a specific mode, for example to
-    represent colors or icons of the current value.
-  
-  \item \cname{data-class}: If the mode is set to \cname{class}, this
-    value is used as CSS class prefix. When the selection is changed,
-    the class consisting of the prefix and the selected value is added
-    to this element. Other classes with this prefix are remove on an
-    input change.
+  \item \vname{"item"}: The content of an item in the list, will be
+    surrounded by a \elname{details} tag.
+  \item \vname{"dialog"}: The content shown left and right in a merge
+    dialogue, representing the items to merge.
+  \item \vname{"merge"}: The middle column in merge dialogue, containing
+    form items for the future mergeitem.
+  \item \vname{"draghandle"}: Option to add an element to an item which
+    functions as handle to drag.
 \end{itemize}
+An item template contains ideally a \elname{summary} tag, so that the
+expand and collapse functionality is given. In the merge dialogue, the
+\vname{name} attribute of form elements need to be identical with the
+keys used in an item to be recognized correctly. 
 
-\section{Styling}
-Some stylings are highly recommended in order to 
-\fname{listmerger.css}
-Further recommended stylings can be found in the examples described in
-the next chapter.
 
-\section{Examples}
-Within the code, a simple and an extended example of implementations are
-delivered and can be found in the \fname{/src/example} folder. The
-simple example (\fname{simple.html} and \fname{simple.js}) demonstrate a
-minimal setup. The extended example is a showcase of nearly all features
-implemented in the library. The related stylesheet (\fname{style.css})
-can also be very helpful to build an own sophisticated instance.
+To show an example, the following snippet for \vname{item} with the data
+example from Listing~\ref{list:itemslist}:
+\begin{samepage}
+\begin{lstlisting}[%
+  language=HTML,
+]
+<summary>{{title}}</summary>
+{{author}}: {{description}}
 
-\section{Customisation}
-The selectors of all HTML class names and ids can be set during the
-initilisation. The identifiers, default values, and a short description
-can be seen in Table~\ref{}
+{{#images}}
+  <img src="{{.}}"/>
+{{/images}}
+\end{lstlisting}
+\end{samepage}
+
+renders to:
+
+\begin{samepage}
+\begin{lstlisting}[%
+  language=HTML,
+]
+<details id="li1it1">
+  <summary>Item 1</summary>
+  Martin Rabensteiner: This is the first item in the list.
+
+  <img src="images/screenshot1.png"/>
+  <img src="images/screenshot2.png"/>
+</details>
+\end{lstlisting}
+\end{samepage}
+
+
+
+
+
+\section{Selectors}
+\label{sec:libu-selectors}
+The selectors of all HTML class names and IDs can be set during the
+initialisation. They are used as selectors for events and dynamic
+changes, but also for stylings. The identifiers, default values, and a
+short description can be seen in Table~\ref{tab:selectors}
 
 \begin{table}[tp]
 \tablerowstretch
@@ -162,10 +204,10 @@ can be seen in Table~\ref{}
 \begin{tabularx}{\linewidth}
 {>{\leavevmode\kern-\tabcolsep}lm{1cm}lY<{\kern-\tabcolsep}}
 \toprule
-\textbf{identifiers} & \textbf{Type} & \textbf{Default value} & \textbf{Description} \\
+\textbf{Identifier} & \textbf{Type} & \textbf{Default Value} & \textbf{Description} \\
 \midrule
 % TODO styling
-PREFIX\_MOVED & Prefix for ID & "moved-" & Prefix that is added to the HTML IDs of moved items in the mergelist. \\
+\vname{PREFIX_MOVED} & Prefix for ID & "moved-" & Prefix that is added to the HTML IDs of moved items in the mergelist. \\
 PREFIX\_MERGED & Prefix for ID & "merged-" & Prefix that is added to the HTML IDs of merged items in the mergelist. \\
 \midrule
 CONTAINER & ID & "listmerger" & Contains the mergelist and container for origin lists. \\
@@ -178,8 +220,8 @@ ITEM\_DRAGHANDLE\_ACTIVE & Class & "draghandle-active" & The item is currently d
 ITEM\_DRAG\_ACTIVE & Class & "drag-active" & The item is currently dragged itself. \\
 \midrule
 TAB\_CONTAINER & Class & "tab-container" & The outer container for the tabs and the tab select box. \\
-TAB\_BAR & Class & "tabbar" & The innter container for all tabs. \\
-TAB\_NAME & Name attribute & "tabs" & Attribute that is added to the \textbackslash{}elname\{details\} tag of an item. \\
+TAB\_BAR & Class & "tabbar" & The inner container for all tabs. \\
+TAB\_NAME & Name attribute & "tabs" & Attribute that is added to the \elname{details} tag of an item. \\
 TAB\_COMPACT & Class & "compact" & When there is not enough space for a tab titles, this class is added to the tab bar. \\
 TAB\_SELECTOR & ID & "detailsselector" & The tab select box shown in the compact state. \\
 \midrule
@@ -188,31 +230,135 @@ ARRANGEBAR & Class & "arrangebar" & The bar shown between two items in the merge
 \midrule
 BUTTON\_MOVE & Class & "move" & The button to move one item to the mergelist or back from there to the origin list. \\
 BUTTON\_MOVEALL & Class & "moveall" & The button to move all remaining items of one origin list to the mergelist. \\
-BUTTON\_SAVE & Class & "save" & Save button for the edit dialog (currently not in use and replaced with inline editing). \\
-BUTTON\_CLOSE & Class & "close" & The Button that cancels the merge dialog. \\
-BUTTON\_MERGE & Class & "merge" & The Button that performs the merge after the dialog. \\
+BUTTON\_SAVE & Class & "save" & Save button for the edit dialogue (currently not in use and replaced with inline editing). \\
+BUTTON\_CLOSE & Class & "close" & The Button that cancels the merge dialogue. \\
+BUTTON\_MERGE & Class & "merge" & The Button that performs the merge after the dialogue. \\
 BUTTON\_DETACH & Class & "detach" & Added to merged items and their origin items to unpair the merge. \\
 BUTTON\_DRAGHANDLE & Class & "draghandle" & Identifies the element of the drag handle template. \\
 \midrule
 BUTTON\_UNDO & ID & "undo" & The undo button for the history. \\
 BUTTON\_REDO & ID & "redo" & The redo button for the history. \\
 \midrule
-DIALOG\_MERGE\_CONTAINER & Class & "mergecontainer" & Container within the merge dialog. \\
+DIALOG\_MERGE\_CONTAINER & Class & "mergecontainer" & Container within the merge dialogue. \\
 \midrule
 TEXT\_BUTTON\_MOVEALL & Text & "Move Remaining" & Shown at every tab. \\
-TEXT\_BUTTON\_MERGE & Text & "Merge" & Shown in the merge dialog. \\
-TEXT\_BUTTON\_CANCEL & Text & "Cancel" & Shown in the merge dialog. \\
+TEXT\_BUTTON\_MERGE & Text & "Merge" & Shown in the merge dialogue. \\
+TEXT\_BUTTON\_CANCEL & Text & "Cancel" & Shown in the merge dialogue. \\
 \bottomrule
 \end{tabularx}
 \end{footnotesize}
 \caption[HTML Identifiers]%
 {Identifiers used for HTML, CSS, and JavaScript and their description. They can be set while initialising, or otherwise the default values are used.}
-\label{tab:identifiers}
+\label{tab:selectors}
 \end{table}
 
 
 
 
+
+
 \section{Saving}
-The current state of the list 
+\label{sec:libu-saving}
+The current state of the list can always be received with the
+\vname{getAllItems()} function. This returns a JavaScript object in the
+same format as described in Section~\ref{sec:libu-datastructure}, and
+additionally a \vname{version} field to indicate changes in the schema.
+The version at release is \vname{v0.1}. For changes, please conduct the
+changelog in the GitHub repository.
+
+The \vname{history_callback} function can be a helpful tool when the
+state should always be saved in real time. A function can be handed over
+during initalisation. The function can have the boolean parameter
+\vname{is_new}, which is true when a user action has happened, and false
+when an action was triggered from an undo or redo action.
+
+
+
+
+
+
+
+\section{Inline Editing}
+\label{sec:libu-editing}
+
+\begin{figure}[tp]
+\centering
+\includegraphics[frame,keepaspectratio,width=\linewidth,height=\halfh]
+{images/edit-i.png}
+\caption[Inline Editing]{%
+An example of inline editing, which is currently active for
+\uiname{Category} and \uiname{Images}. The image editing is not part of
+the library itself but can be taken from the main example.
+\imgcredit{Screenshot by Martin Rabensteiner.}
+}
+\label{fig:inline-edit}
+\end{figure}
+
+
+
+Fields of items can be configured to be editable inline, as seen in
+Figure~\ref{fig:inline-edit}. For text-only fields, the
+\vname{contenteditable} attribute \parencite{mdn-contenteditable} should
+be set to \vname{"plaintext-only"}. Setting it to \vname{"true"} is also
+sufficient for the functionality, but can lead to unexpected behaviour
+when dragging an image over the field.
+
+To use a \elname{select} element for editing, the CSS class
+\cname{selectedit} can be put on a \elname{span} element to replace its
+content. The \elname{span} needs to have some \vname{data-*} attributes
+to build the select box. These attributes are:
+\begin{itemize}
+  \item \vname{data-name}: Is used as \vname{name} for the
+    \elname{select} element and for storing to the item, therefore it
+    should be one of the already set children of the item.
+
+  \item \vname{data-options}: Needs to have the possible options of the
+    select box. It can be either a one-dimensional array, or an object
+    with key-value pairs. If it is an object, the key and values are
+    used as they are, othervise the single values are used for both.
+
+  \item \vname{data-values}: Can be a single value, or comma-separted
+    the selected values. Valid examples are:
+    \begin{itemize}
+      \item \lstinline!1,2,3,4!
+      \item \lstinline!["John", "Max", "Mario"]!
+      \item \lstinline!{"0": "Very Low", "1": "Low", "2": "Medium", "3": "High", "4": "Very High"}!
+    \end{itemize}
+  
+  \item \vname{data-mode}: Per default, the select box is displayed as
+    single select. When the mode is \vname{multiple}, the
+    \vname{multiple} attribute is added to the \elname{select} element
+    as well. Another option for this attribute is \vname{class}, to
+    change the class of this element to a specific mode, for example to
+    represent colors or icons of the current value.
+  
+  \item \vname{data-class}: If the mode is set to \vname{class}, this
+    value is used as CSS class prefix. When the selection is changed,
+    the class consisting of the prefix and the selected value is added
+    to this element. Other classes with this prefix are remove on an
+    input change.
+\end{itemize}
+
+
+
+
+
+
+\section{Draghandle}
+\label{sec:libu-draghandle}
+A draghandle can be added to an item to allow only arranging, when
+dragging the item. This can be useful when the design requires a
+stronger distinction between merging and arranging items, for example
+when there is no space between two items or the separating bar between
+two items should not be shown. Some tags, for example \elname{img} have
+a draggable attribute per default. For other elements it is necessary to
+add the attribute \lstinline!draggable="true"!. The snippet below shows
+a template example with the already included icon:
+\begin{samepage}
+\begin{lstlisting}[%
+  language=HTML,
+]
+<img class="draghandle" src="icons/dragicon.svg"/>
+\end{lstlisting}
+\end{samepage}
 

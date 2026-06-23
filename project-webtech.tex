@@ -6,16 +6,18 @@
 % 
 %  Created :  31 Mar 2026
 % 
-%  Changed :  31 Mar 2026
+%  Changed :  23 Jun 2026
 % 
 %----------------------------------------------------------------
 
 \chapter{Modern Web Technologies}
 \label{chap:webtech}
 
-\TODO{}
+Web technologies are a steadily changing field to keep track with new
+technical possibilities and optical or interactivity affordances. This
+chapter covers some topics related to the development of ListMerger.
 
-The main browser vendors united already in 2004 as Web Hypertext
+The main browser vendors united in 2004 as Web Hypertext
 Application Technology Working Group (WHATWG), but the definition of the
 HTML standard was in charge of the World Wide Web Consortium (W3C) for
 some decades. In 2018, the browser vendors became mutinous and only one
@@ -25,13 +27,21 @@ standardization among different browsers, and a faster drive of
 innovation, like the improvements mentioned as follows.
 
 
+
+
 \section{Living HTML}
 The Hyper Text Markup Language (HTML) standard was first developed and
 published in the early 1990's by Tim Berners-Lee at CERN and later
 handed over to the new founded World Wide Web Consortium
-(W3C)~\parencite{whatwg-livingstandard}. The last major version (HTML4) was published in
-1998, and after some intermediate versions, the work on HTML5 started by
-W3C in 2004. HTML5 was never published in a finished version. Since 2019, W3C and WHATWG are maintaining the standard together as a living standard, and publish updates continuously in the publishing browers.
+(W3C)~\parencite{whatwg-livingstandard}. The last major version (HTML4)
+was published in 1998, and after some intermediate versions, the work on
+HTML5 started by W3C in 2004. HTML5 was never published in a finished
+version. Since 2019, W3C and WHATWG are maintaining the standard
+together as a living standard, and publish updates continuously in the
+publishing browers.
+
+
+
 
 \section{Modern CSS}
 Along with the HTML modernisation, the Cascading Style Sheets (CSS)
@@ -41,57 +51,49 @@ example containers queries \parencite{mdn-cssquieries} to differentiate
 between different screen sizes or use styles as selectors, or colour
 mixing functions \parencite{mdn-colorfunctions}.
 
+
+
+
 \section{Modern JavaScript}
-% Node.js
-% jQuery
-% selectors
-% event handling
-\parencite{shukla-jsfullstack}
-
-
-JavaScript is essential in modern web development to make client-site
+JavaScript is essential in modern web development for interactivity
+\parencite{shukla-jsfullstack}. It enables to make client-site
 computations and modify the Document Object Model (DOM), which describes
 the structure and content of a web page. It was introduced in 1995, soon
 available in all usual browsers, and is and still today an important
 component of them. As dynamic web pages become more and more popular, it
 was even more necessary to manipulate the content directly on the
 client.
+% Node.js
+With Node.js, first published in 2009, it became more and more popular
+to use JavaScript also as a server-side programming language
+\parencite{nodejs}. JavaScript can be therefore used in the backend as
+well as in the frontend, creating new synergies.
 
 
-\section{Node.js}
-With Node.js, it became popular to use JavaScript also as a server-side
-programming language. 
-% Todo Node paragraph
 
 
 \section{jQuery}
 jQuery is a widley-used frontend framework and reached its peak of usage
-on around 78 \% of all websites tracked in 2022 and is steadly
+on around 78 \% of all websites tracked in 2022, bus is steadily
 decreasing since then, with circa 70 \% in March 2026
 \parencite{w3techs-js-statistics}. By time, the outstanding functions of
 jQuery got more and more redundant. Several use cases and
-functionalities were integrated directly in HTML, CSS, or JavaScript.
-For example, the accordion can now be replaced with the
+functionalities were integrated directly in HTML, CSS, or, mostly,
+JavaScript. For example, the accordion can now be replaced with the
 \elname{details} tag (available since 2020)
 \parencite{mdn-html-details}. JavaScript introduced selector functions
 like \vname{querySelector()}, \vname{querySelectorAll()} and some other
 for HTML element in 2015 \parencite{mdn-js-queryselector}. This made the
 classic jQuery DOM selection with the {\vname{\$()}} function obsolete.
 
-% paragraph to top?
-
-
 
 
 
 \section{JavaScript Package Managers}
-
 The node package manager (NPM) was introduced in 2009, to make the
 handling with node modules in the development process and their
 publishment among developers more convenient. It is an open source
 project and now in the hands of GitHub \parencite{npm-website}.
-
-% Yarn
 
 PNPM (performant NPM) introduces a more performant approach for package
 managing than NPM \cite{pnpm-website}. Instead of downloading and
@@ -113,26 +115,21 @@ compared with the last three years, NPM is steadily used in about two
 third of projects. The usage of Yarn classic has decreased from 29 \% to
 18 \% over the same time frame. PNPM has a stagnant share of about 6 \%.
 
-PNPM is used in this project to combine its advantages in speed and
-storage performance with 
+Another currently uprising package manager is bun, which claims to
+install dependencies a few times faster than the tools mentioned before
+\parencite{bun-pm}. Its toolkit provides alternatives for Node.js, Vite,
+and other JavaScript development tools as well.
 
 
-
-\section{GitHub Pages}
-\TODO{}
 
 
 \section{Mustache Templates}
 \label{sec:mustache}
 Mustache is a logic-less template format \parencite{mustache}.
-Characteristic are the double \vname{\{\{\}\}} brackets, which are then
-replaced. For example, \vname{\{\{variable\}\}} is replaced with the
+Characteristic are the double \vname{{{}}} brackets, which are then
+replaced. For example, \vname{{{variable}}} is replaced with the
 value of \vname{variable}. For-each loops and simple if conditions can
 be mocked with Mustache, even though there is no logic in the template.
 Mustache libraries are available for around 50 programming languages,
 including JavaScript, Python, PHP, or C++. It is popular to structure
 small or large parts of content with its template style.
-
-\section{Accessibility}
-\label{sec:accessibility}
-% chap about accessibility in general
