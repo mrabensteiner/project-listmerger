@@ -6,7 +6,7 @@
 % 
 %  Created :  20 Feb 2026
 % 
-%  Changed :  23 Jun 2026
+%  Changed :  24 Jun 2026
 % 
 %----------------------------------------------------------------
 
@@ -16,7 +16,7 @@
 This section describes implementation details of ListMerger. The code
 itself is written in pure TypeScript. Almost all third-party libraries
 are used only in the build and development process. Only the Mustache
-package is used to render templates.
+package is used to render templates during runtime.
 
 Recurring terms in the development are \uiname{move} and \uiname{merge}.
 Moving describes the process of a transferring an item from an
@@ -57,6 +57,7 @@ lists and the merged list.
 \item \fname{uihelper.ts}: Contains several helper functions to deal
 with the DOM.
 \end{itemize}
+
 
 
 
@@ -420,13 +421,13 @@ workarounds, and further tasks.
 \subsection{Cursor Behaviour when Dragging}
 One useful feature idea was that the cursor is different when dragging
 an item, depending on whether the item is approaching to be moved to the
-mergelist (moving cursor) or merged into another item (adding cursor). The
-\fname{event.datatransfer.dropEffect} property in JavaScript defines the
-visual behaviour of the mouse cursor during a drag event
-\parencite{mdn-dropeffect}. While the \fname{cursor} CSS property offers
+mergelist (moving cursor) or merged into another item (adding cursor).
+The \vname{event.datatransfer.dropEffect} property in JavaScript defines
+the visual behaviour of the mouse cursor during a drag event
+\parencite{mdn-dropeffect}. While the \vname{cursor} CSS property offers
 a variety of 36 mouse cursors, in interaction with the operating system
 \parencite{mdn-cursor}, this property is not taken into account as soon
-as a drag event is started. The \fname{dropEffect} has offers a
+as a drag event is started. The \vname{dropEffect} has offers a
 selection of only four elements, all equivalent to options for the CSS
 property (\vname{copy}, \vname{move}, \vname{link}, \vname{none}).
 
@@ -449,14 +450,14 @@ is used once to let the title be in row and the inner content only for
 one list. This option shows only the inner part of the content and do
 not produce a box by themselves \parencite{mdn-display}.
 
-The outer box is removed, the flex bounding box is not valid anymore,
+The outer box is removed, the flex bounding box is not valid any more,
 and therefore the inner content scales to maximum, making the scrollbar
 for the whole tab scope, and not just the inner part where the items
 are. Furthermore, accessibility problems associated with this property
 value are mentioned.
 
 Different structures for HTML and CSS only tabs, like radio buttons and
-labeles \parencite{kliemann-radiotabs} were tried, but led to the same
+lables \parencite{kliemann-radiotabs} were tried, but led to the same
 problem. Eventually, a JavaScript ResizeObserver
 \parencite{mdn-resizeobs} is introduced to monitor the tab height, and
 adjust the inner lists height to it.
