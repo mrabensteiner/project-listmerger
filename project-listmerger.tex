@@ -337,7 +337,10 @@ the mergeitem.
 
 
 
+
+
 \section{Icons}
+
 Especially the merging icon made it necessary to work out custom icons
 for this project. The icons were initially drafted in Inkscape and the
 resulting SVG files manually revised and improved. All icons base on a
@@ -347,63 +350,69 @@ to be used, but can also be replaced or hidden completely. All items are
 defined only in CSS stylesheets or templates and therefore not
 obligatory for the library.
 
+
+\newcommand{\iconbox}[1]{%
+\includegraphics[margin=3mm,valign=m,width=6mm]{#1}
+}%
+
+
 \begin{table}[tp]
 \tablerowstretch
 \rowcolors{2}{}{tablerowcolour}
 \centering
 \begin{footnotesize}
 \begin{tabularx}{\linewidth}
-{>{\leavevmode\kern-\tabcolsep}m{1.2cm}lY<{\kern-\tabcolsep}}
+{>{\leavevmode\kern-\tabcolsep}llY<{\kern-\tabcolsep}}
 \toprule
 \textbf{Icon} & \textbf{Filename} & \textbf{Description} \\
 \midrule
-\includegraphics[height=1cm]{icons/caret} & \fname{caret.svg} & Replaces
+\iconbox{icons/caret.pdf} & \fname{caret.svg} & Replaces
 the original triangle for \elname{details}. Indicates and controls its
 open status. When opened, the icon is rotated 90 degrees.\\
 %
-\includegraphics[height=1cm]{icons/check} & \fname{check.svg} &
+\iconbox{icons/check.pdf} & \fname{check.svg} &
 Used to indicate that an item is added to the mergelist, but not merged. \\
 %
-\includegraphics[height=1cm]{icons/close} & \fname{close.svg} &
+\iconbox{icons/close.pdf} & \fname{close.svg} &
 For close buttons in dialogs. \\
 %
-\includegraphics[height=1cm]{icons/detach} & \fname{detach.svg} &
+\iconbox{icons/detach.pdf} & \fname{detach.svg} &
 To detach items from mergeitems or the other way around.\\
 %
-\includegraphics[height=1cm]{icons/dragicon} & \fname{dragicon.svg} &
+\iconbox{icons/dragicon.pdf} & \fname{dragicon.svg} &
 Used to rearranged items in the mergelist. Not included in the example.\\
 %
-\includegraphics[height=1cm]{icons/edit} & \fname{edit.svg} &
+\iconbox{icons/edit.pdf} & \fname{edit.svg} &
 Button for editing values. \\
 %
-\includegraphics[height=1cm]{icons/merge} & \fname{merge.svg} &
+\iconbox{icons/merge.pdf} & \fname{merge.svg} &
 Button to merge and also as indicator for items that are merged into another. \\
 %
-\includegraphics[height=1cm]{icons/move} & \fname{move.svg} &
+\iconbox{icons/move.pdf} & \fname{move.svg} &
 For moving an item to the mergelist or back. \\
 %
-\includegraphics[height=1cm]{icons/moveall} & \fname{moveall.svg} &
+\iconbox{icons/moveall.pdf} & \fname{moveall.svg} &
 Move all remaining items to the mergelist. \\
 %
-\includegraphics[height=1cm]{icons/openfile} & \fname{openfile.svg} &
+\iconbox{icons/openfile.pdf} & \fname{openfile.svg} &
 Open a file as source for lists and items.\\
 %
-\includegraphics[height=1cm]{icons/redo} & \fname{redo.svg} &
+\iconbox{icons/redo.pdf} & \fname{redo.svg} &
 History redo.\\
 %
-\includegraphics[height=1cm]{icons/save} & \fname{save.svg} & 
+\iconbox{icons/save.pdf} & \fname{save.svg} & 
 Save the current state of all lists. \\
 %
-\includegraphics[height=1cm]{icons/save_orange} & \fname{save_orange.svg} &
+\iconbox{icons/save_orange.pdf} & \fname{save_orange.svg} &
 Save the current state of an item when editing.\\
 %
-\includegraphics[height=1cm]{icons/undo} & \fname{undo.svg} &
+\iconbox{icons/undo.pdf} & \fname{undo.svg} &
 History undo.\\
 \bottomrule
 \end{tabularx}
 \end{footnotesize}
-\caption[Icons]%
-{Overview of icons made for and used within the library.}
+\caption[Icons used in ListMerger]{%
+Overview of icons made for and used within the library.}
 \label{tab:icons}
 \end{table}
 

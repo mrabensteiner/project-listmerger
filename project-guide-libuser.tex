@@ -25,6 +25,7 @@ initalisation.
 
 
 \section{Examples}
+
 Within the code, a simple and an extended example of implementations are
 delivered and can be found in the \fname{/src/example} folder. The
 simple example (\fname{simple.html} and \fname{simple.js}) demonstrate a
@@ -41,6 +42,7 @@ linked in the examples (\fname{style.css}).
 
 \section{Initialising}
 \label{sec:libu-init}
+
 To initialise the library within an application, the \vname{init()}
 function needs to be called. This function has four parameters:
 \begin{itemize}
@@ -192,12 +194,15 @@ renders to:
 
 
 
+
 \section{Selectors}
 \label{sec:libu-selectors}
+
 The selectors of all HTML class names and IDs can be set during the
 initialisation. They are used as selectors for events and dynamic
 changes, but also for stylings. The identifiers, default values, and a
-short description can be seen in Table~\ref{tab:selectors}
+short description can be seen in Table~\ref{tab:selectors}.
+
 
 \begin{table}[tp]
 \tablerowstretch
@@ -210,10 +215,10 @@ short description can be seen in Table~\ref{tab:selectors}
 \textbf{Identifier} & \textbf{Type} & \textbf{Default Value} & \textbf{Description} \\
 \midrule
 % TODO styling
-\vname{PREFIX_MOVED} & Prefix for ID & "moved-" &
+\vname{PREFIX_MOVED} & Prefix for ID & \enquote{\vname{moved-}} &
 Prefix that is added to the HTML IDs of moved items in the mergelist. \\
 %
-PREFIX\_MERGED & Prefix for ID & "merged-" &
+PREFIX\_MERGED & Prefix for ID & \enquote{\vname{merged-}} &
 Prefix that is added to the HTML IDs of merged items in the mergelist. \\
 \midrule
 CONTAINER & ID & "listmerger" &
