@@ -6,7 +6,7 @@
 % 
 %  Created :  20 Feb 2026
 % 
-%  Changed :  24 Jun 2026
+%  Changed :  01 Jul 2026
 % 
 %----------------------------------------------------------------
 
@@ -447,6 +447,16 @@ items. Otherwise, the event listener needs to be reassigned every time
 an item is changed. Google Chrome does basically support the change
 during an event, but at some points a \vname{none} cursor is wrongly
 shown.
+
+An alternative to the strict \vname{dropEffect} setting of drag events
+is to rebuild the native drag-and-drop functionality with other mouse
+events. Solutions like this, for example the one of
+\textcite{gunduz-mouseover}, were considered and tried out, but did not
+lead to sufficient results. This browser mechanics is known and
+discussed throughout several discussions and issue reports in the web.
+\parencite{chromium-cursorissue,horowitz-customizecursor} It should not
+be ruled out that the ability to change the drop effect will eventually
+be made easier by browser vendors in future.
 
 
 
