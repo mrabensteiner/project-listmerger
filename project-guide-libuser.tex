@@ -145,7 +145,7 @@ the \vname{template} parameters is a string-string pair with up to four
 keys. These are:
 \begin{itemize}
   \item \vname{"item"}: The content of an item in the list, will be
-    surrounded by a \elname{details} tag.
+    surrounded by a \elname{details} element.
   \item \vname{"dialog"}: The content shown left and right in a merge
     dialogue, representing the items to merge.
   \item \vname{"merge"}: The middle column in merge dialogue, containing
@@ -153,8 +153,8 @@ keys. These are:
   \item \vname{"draghandle"}: Option to add an element to an item which
     functions as handle to drag.
 \end{itemize}
-An item template contains ideally a \elname{summary} tag, so that the
-expand and collapse functionality is given. In the merge dialogue, the
+An item template contains ideally a \elname{summary} element, so that the
+expand-and-collapse functionality is given. In the merge dialogue, the
 \vname{name} attribute of form elements need to be identical with the
 keys used in an item to be recognized correctly. 
 
@@ -218,88 +218,88 @@ short description can be seen in Table~\ref{tab:selectors}.
 \vname{PREFIX_MOVED} & Prefix for ID & \enquote{\vname{moved-}} &
 Prefix that is added to the HTML IDs of moved items in the mergelist. \\
 %
-PREFIX\_MERGED & Prefix for ID & \enquote{\vname{merged-}} &
+\vname{PREFIX_MERGED} & Prefix for ID & \enquote{\vname{merged-}} &
 Prefix that is added to the HTML IDs of merged items in the mergelist. \\
 \midrule
-CONTAINER & ID & "listmerger" &
+\vname{CONTAINER} & ID & \enquote{\vname{listmerger}} &
 Contains the mergelist and container for origin lists. \\
 %
-MERGE\_LIST\_CONTAINER & ID & "mergelist-container" &
+\vname{MERGE_LIST_CONTAINER} & ID & \enquote{\vname{mergelist-container}} &
 Is a wrapper for the mergelist and its indicator. \\
 %
-MERGE\_LIST & ID & "mergelist" &
+\vname{MERGE_LIST} & ID & \enquote{\vname{mergelist}} &
 Is the mergelist itself. \\
 %
-LIST & Class & "list" &
+\vname{LIST} & Class & \enquote{\vname{list}} &
 Every list of items. \\
 \midrule
-ITEM & Class & "item" &
+\vname{ITEM} & Class & \enquote{\vname{item}} &
 A single item within a list. \\
 %
-ITEM\_DRAGHANDLE\_ACTIVE & Class & "draghandle-active" &
+\vname{ITEM_DRAGHANDLE_ACTIVE} & Class & \enquote{\vname{draghandle-active}} &
 The item is currently dragged with the draghandle. \\
 %
-ITEM\_DRAG\_ACTIVE & Class & "drag-active" &
+\vname{ITEM_DRAG_ACTIVE} & Class & \enquote{\vname{drag-active}} &
 The item is currently dragged itself. \\
 \midrule
-TAB\_CONTAINER & Class & "tab-container" &
+\vname{TAB_CONTAINER} & Class & \enquote{\vname{tab-container}} &
 The outer container for the tabs and the tab select box. \\
 %
-TAB\_BAR & Class & "tabbar" &
+\vname{TAB_BAR} & Class & \enquote{\vname{tabbar}} &
 The inner container for all tabs. \\
 %
-TAB\_NAME & Name attribute & "tabs" &
-Attribute that is added to the \elname{details} tag of an item. \\
+\vname{TAB_NAME} & Name attribute & \enquote{\vname{tabs}} &
+Attribute that is added to the \elname{details} element of an item. \\
 %
-TAB\_COMPACT & Class & "compact" &
+\vname{TAB_COMPACT} & Class & \enquote{\vname{compact}} &
 When there is not enough space for a tab titles, this class is added to the tab bar. \\
 %
-TAB\_SELECTOR & ID & "detailsselector" &
+\vname{TAB_SELECTOR} & ID & \enquote{\vname{detailsselector}} &
 The tab select box shown in the compact state. \\
 \midrule
-HOVER\_DROP & Class & "drop" &
+\vname{HOVER_DROP} & Class & \enquote{\vname{drop}} &
 The effect added to a list or item, when an item is dragged over it. \\
 %
-ARRANGEBAR & Class & "arrangebar" &
+\vname{ARRANGEBAR} & Class & \enquote{\vname{arrangebar}} &
 The bar shown between two items in the mergelist when rearranging or dragging. \\
 \midrule
-BUTTON\_MOVE & Class & "move" &
+\vname{BUTTON_MOVE} & Class & \enquote{\vname{move}} &
 The button to move one item to the mergelist or back from there to the origin list. \\
 %
-BUTTON\_MOVEALL & Class & "moveall" &
+\vname{BUTTON_MOVEALL} & Class & \enquote{\vname{moveall}} &
 The button to move all remaining items of one origin list to the mergelist. \\
 %
-BUTTON\_SAVE & Class & "save" &
+\vname{BUTTON_SAVE} & Class & \enquote{\vname{save}} &
 Save button for the edit dialogue (currently not in use and replaced with inline editing). \\
 %
-BUTTON\_CLOSE & Class & "close" &
+\vname{BUTTON_CLOSE} & Class & \enquote{\vname{close}} &
 The Button that cancels the merge dialogue. \\
 %
-BUTTON\_MERGE & Class & "merge" &
+\vname{BUTTON_MERGE} & Class & \enquote{\vname{merge}} &
 The Button that performs the merge after the dialogue. \\
 %
-BUTTON\_DETACH & Class & "detach" &
+\vname{BUTTON_DETACH} & Class & \enquote{\vname{detach}} &
 Added to merged items and their origin items to unpair the merge. \\
 %
-BUTTON\_DRAGHANDLE & Class & "draghandle" &
+\vname{BUTTON_DRAGHANDLE} & Class & \enquote{\vname{draghandle}} &
 Identifies the element of the drag handle template. \\
 \midrule
-BUTTON\_UNDO & ID & "undo" &
+\vname{BUTTON_UNDO} & ID & \enquote{\vname{undo}} &
 The undo button for the history. \\
 %
-BUTTON\_REDO & ID & "redo" &
+\vname{BUTTON_REDO} & ID & \enquote{\vname{redo}} &
 The redo button for the history. \\
 \midrule
-DIALOG\_MERGE\_CONTAINER & Class & "mergecontainer" &
+\vname{DIALOG_MERGE_CONTAINER} & Class & \enquote{\vname{mergecontainer}} &
 Container within the merge dialogue. \\
 \midrule
-TEXT\_BUTTON\_MOVEALL & Text & "Move Remaining" &
+\vname{TEXT_BUTTON_MOVEALL} & Text & \enquote{\vname{Move Remaining}} &
 Shown at every tab. \\
 %
-TEXT\_BUTTON\_MERGE & Text & "Merge" &
+\vname{TEXT_BUTTON_MERGE} & Text & \enquote{\vname{Merge}} &
 Shown in the merge dialogue. \\
 %
-TEXT\_BUTTON\_CANCEL & Text & "Cancel" &
+\vname{TEXT_BUTTON_CANCEL} & Text & \enquote{\vname{Cancel}} &
 Shown in the merge dialogue. \\
 \bottomrule
 \end{tabularx}
@@ -407,10 +407,10 @@ A draghandle can be added to an item to allow only arranging, when
 dragging the item. This can be useful when the design requires a
 stronger distinction between merging and arranging items, for example
 when there is no space between two items or the separating bar between
-two items should not be shown. Some tags, for example \elname{img} have
-a draggable attribute per default. For other elements it is necessary to
-add the attribute \lstinline!draggable="true"!. The snippet below shows
-a template example with the already included icon:
+two items should not be shown. Some elements, for example \elname{img}
+have a draggable attribute per default. For other elements it is
+necessary to add the attribute \lstinline!draggable="true"!. The snippet
+below shows a template example with the already included icon:
 \begin{samepage}
 \begin{lstlisting}[%
   language=HTML,
