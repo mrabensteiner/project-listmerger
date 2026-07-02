@@ -6,7 +6,7 @@
 % 
 %  Created :  20 Feb 2026
 % 
-%  Changed :  01 Jul 2026
+%  Changed :  02 Jul 2026
 % 
 %----------------------------------------------------------------
 
@@ -29,11 +29,14 @@ origin is done, to have a clean and reconstructive merging history.
 
 
 \section{Architecture and Files}
+
 The library itself is modularised into several TypeScript files and
 compiled with Gulp to a single \fname{.js} file. Minimised and Gzip
-files, as well as a CSS stylesheet are added. This stylesheet contains
-the recommended minimum styling to build a proper example. The only
-dependency at runtime is Mustache \parencite{mustache} to render
+files, as well as a CSS stylesheet are added. ListMerger itself does not
+define its own style, but certain CSS styling rules are highly
+recommended and can be found in \fname{listmerger.css}. This stylesheet
+contains the recommended minimum styling to build a proper example. The
+only dependency at runtime is Mustache \parencite{mustache} to render
 user-specific templates. The TypeScript files are:
 \begin{itemize}
 \item \fname{events.ts}: Initialises all event listeners for buttons and
@@ -62,6 +65,7 @@ with the DOM.
 
 
 \section{Initialisation and Data Structure}
+
 An initialisation call is necessary to activate the functionality of the
 library. For this, the function \vname{init.init()} is called from the
 outside. More details on this call are described in
@@ -76,25 +80,31 @@ Section~\ref{sec:libu-datastructure}, with Listing~\ref{list:itemslist}
 as example. The object is modified with every user action and is
 returned with the \vname{getAllItems()} function.
 
-ListMerger itself does not define its own style, but certain CSS
-styling rules are highly recommended and can be found in
-\fname{listmerger.css}.
-
 
 
 
 \section{History (Undo/Redo)}
+
 An important feature and affordance of this component is the history
 tracking, to keep track of user actions. With the \uiname{Undo} and
 \uiname{Redo} buttons, the user can jump back and forward with actions. 
-
+%
 The history is based on a history and a future array. When clicking
 undo/redo, a history item is moved from history to future, or vice
 versa. A history item consists of a keyword for the action, and several
 parameters, to track IDs, positions, arrays and so on, depending on the
-context of the merge keyword. User actions are tracked with the
-\vname{history.log()} function.
-
+context of the merge keyword. User actions are always tracked with the
+\vname{history.log()} function, to make all actions completely
+reproducible. Depending on the action, different parameters (like IDs,
+arrays, or whole item objects) are stored. For this, the log function
+has a function header with 6 optional parameters:
+\begin{samepage}
+\begin{lstlisting}[%
+  language=TypeScript,
+]
+export function log(task: Tasks, id1 = "", id2 = "", id3 = "", array: any[] = [], item = {}, item2 = {})
+\end{lstlisting}
+\end{samepage}
 
 
 
@@ -151,7 +161,7 @@ to have tab bars without JavaScript.
 The \elname{details} element serves as a container for one item. On
 \elname{summary} element is needed as a child, which is represents the
 title. If no such title element is present, the total is
-\uiname{Details}. Per default, a small triangle on the left indicates
+\uiname{Details}. By default, a small triangle on the left indicates
 the open/closed status of the content. This status is toggled by
 clicking on the \elname{summary} element. The content does not
 necessarly have to be an element and can also be plain text. To have a
@@ -166,22 +176,24 @@ for tab bars, some CSS properties need to be applied. These properties
 include:
 \begin{itemize}
 \item \liintro{\elname{container} as flexbox}: This ensure to have the
-elements next to each in horizontal alignment.
+   elements next to each in horizontal alignment.
 
 \item \liintro{\elname{section} with full-width (100\%)}: Below the flex
-container, the summaries should have only as much width as they need,
-but the section below should span across the whole width to break in a
-new line.
+  container, the summaries should have only as much width as they need,
+  but the section below should span across the whole width to break in a
+  new line.
 
 \item \liintro{Display details as content}: The section would be shown
-right next to the summary, but this display option shifts it to the end.
+  right next to the summary, but this display option shifts it to the
+  end.
 
 \item \liintro{Display open details pseudo-element as content}: This
-pseudo element 
+  pseudo element shows only the content of the one \elname{details}
+  element that is open.
 
 \item \liintro{Order of summary and section}: Setting the order for all
-summary items to 0 and all section items to 1, clusters the summary
-items all at the top and shows the active section element below.
+  summary items to 0 and all section items to 1, clusters the summary
+  items all at the top and shows the active section element below.
 \end{itemize}
 
 The minimal CSS to reach this appearance in shown in
@@ -269,9 +281,10 @@ be edited in the middle.
 \centering
 \includegraphics[frame,keepaspectratio,width=\linewidth,height=\halfh]
 {images/merged-i.png}
-\caption[Merged Item]{%
-Merged items (right) appear greyed out and annotated with a merge icon.
-The merge item (left) contains links to them.
+\caption[Two Lists with a Merged Item]{%
+Merged origin items (right top) appear greyed out and annotated with a
+merge icon. The merged item itself (left) contains links to them. Items
+can be dragged and dropped from the right to the left.
 \imgcredit{Screenshot by Martin Rabensteiner.}
 }
 \label{fig:mergeditems}
@@ -281,8 +294,13 @@ The merge item (left) contains links to them.
 
 
 \section{Items}
+
 Items are created with a \elname{details} element. A classname and a
-\cname{data-role} attribute are added from the predfined selectors. The inner part is defined by a template when initialising. All values that are defined for the item in the \vname{items} object can be used for rendering. Some values are added depending on the current state. These can be:
+\cname{data-role} attribute are added from the predfined selectors. The
+inner part is defined by a template when initialising. All values that
+are defined for the item in the \vname{items} object can be used for
+rendering. Some values are added depending on the current state. These
+can be:
 \begin{itemize}
   \item \vname{status}: Moved, merged or mergeitem.
   \item \vname{parent_id}: Contains the item's ID itself again, to be
@@ -298,20 +316,47 @@ Items are created with a \elname{details} element. A classname and a
 
 
 
-\section{User Actions and their implementations}
+\section{Drag and Drop}
 
-\subsection{Moving Items}
-When items are moved to the mergelist, a clone of the regarding item is
-produced.
+The drag and drop functionality is based on the native HTML Drag and
+Drop API \parencite{mdn-draganddrop} and implemented in the
+\fname{events.ts} file. The listener for dragging is applied to the app
+container. The listener for dropping is applied to the mergedlist only.
+Besides drag and drop, items can also be added using a \uiname{Move}
+button per item, or a \uiname{Move Remaining} button per list.
+
+% Dragstart
+On \vname{dragstart}, it is checked whether the item is eligible to be
+dragged. If so, the item ID is stored in a local variable that can be
+called in further functions. Thanks to the JavaScript \vname{closest()}
+function, this works for inner elements too, for example when the image
+inside is dragged, and not the item itself.
+
+% Dragover
+The \vname{dragover} listener is bound to the mergelist and handles
+changes during the dragging state. An HTML class (\cssname{drop} by
+default) is added to the list, or an item, depending on whereat the
+dragged item is hovered. When there are already items in the mergelist,
+a bar is shown at the position where the dragged item is approaching to
+drop. This applies as well, when items within the mergelist are
+rearranged.
+
+% Drop
+The mergelist also listens on \vname{drop}, which performs the further
+actions depending on the target. When dropped to the list, the item is
+cloned and appended to the mergelist at the indicated position. When
+dropped over another item, the merge dialogue is called for editing the
+values of the new item out of the merge. The merge is only performed
+when confirmed by a button as described in Section~\ref{sec:merging},
+otherwise nothing happens. The state of the origin item is adapted to
+the action performed on drop.
 
 
-\subsection{Editing Items}
-The editing of items is not handed by the library directly, as this can
-strongly depend on the individual implementation. Therefore, the
-\vname{events.edit()} function can be called from the outside.
 
 
-\subsection{Merging Items}
+\section{Merging Items}
+\label{sec:merging}
+
 Merging is initiated by dragging one item over another in the mergelist.
 A dialogue opens to compare the two items to merge, as seen in
 Figure~\ref{fig:mergewindow}. The properties are shown to the left and
@@ -325,14 +370,22 @@ vice versa. These connections can be detached.
 
 
 
-\subsection{Detaching Items}
-A detach button or link can be added to mergeitems or items that or
-merged to loosen their connection. All attribute from the mergeitem stay
-the same, except for the connection to the original item to detach. This
-item then appears untouched in the origin list again. Two attributes
-need to be set in order to execute the detach: \vname{data-from}
-contains the ID of the original item, \vname{data-to} contains the ID of
-the mergeitem.
+\section{Editing Items}
+
+The editing of items is not handled by the library directly, as this can
+strongly depend on the individual implementation. Therefore, the
+\vname{events.edit()} function can be called from the outside with the
+parameters \vname{id}, \vname{key}, and \vname{value}. The ID defines
+the item, whereas the key-value pair is a property of the item. The
+history logging is only triggered when value is different.
+% Detaching
+A detach button or link can be added to mergeitems and items that are
+merged to loosen their connection. All attributes from the mergeitem
+stay the same, except for the connection to the original item to detach.
+This item then appears untouched in the origin list again. Two
+attributes need to be set for the surrounding element in order to
+execute detaching: \vname{data-from} contains the ID of the original
+item, \vname{data-to} contains the ID of the mergeitem.
 
 
 
@@ -421,6 +474,7 @@ Overview of icons made for and used within the library.}
 
 \section{Challenges and Future Work}
 \label{sec:challenges}
+
 This section covers some noteworthy challenges during the development
 process, that could not completely be satisfied, or just with some
 workarounds, and further tasks.
@@ -428,6 +482,7 @@ workarounds, and further tasks.
 
 
 \subsection{Cursor Behaviour when Dragging}
+
 One useful feature idea was that the cursor is different when dragging
 an item, depending on whether the item is approaching to be moved to the
 mergelist (moving cursor) or merged into another item (adding cursor).
@@ -460,14 +515,15 @@ be made easier by browser vendors in future.
 
 
 
-\subsection{Flexbox Layout within display: contents}
+\subsection{Flexbox Layout within \vname{display: contents}}
+
 In the examples, the whole page is nested in a flexbox grid
 \parencite{mdn-flexbox}. All outer controls, titles, etc. are always
 visible, and only the lists are scrollable. Due to the construction of
-tabs with the \elname{details} element, the CSS option {display: contents}
-is used once to let the title be in row and the inner content only for
-one list. This option shows only the inner part of the content and do
-not produce a box by themselves \parencite{mdn-display}.
+tabs with the \elname{details} element, the CSS option \vname{display:
+contents} is used once to let the title be in row and the inner content
+only for one list. This option shows only the inner part of the content
+and do not produce a box by themselves \parencite{mdn-display}.
 
 The outer box is removed, the flex bounding box is not valid any more,
 and therefore the inner content scales to maximum, making the scrollbar
@@ -476,13 +532,15 @@ are. Furthermore, accessibility problems associated with this property
 value are mentioned.
 
 Different structures for HTML and CSS only tabs, like radio buttons and
-lables \parencite{kliemann-radiotabs} were tried, but led to the same
+labels \parencite{kliemann-radiotabs} were tried, but led to the same
 problem. Eventually, a JavaScript ResizeObserver
 \parencite{mdn-resizeobs} is introduced to monitor the tab height, and
 adjust the inner lists height to it.
 
 
+
 \subsection{Accessibility}
+
 One of the main usability affordance of this project is to have a
 drag-and-drop functionality. However, this is a functionality that is
 not in line with accessibility affordance. Some features, like the
