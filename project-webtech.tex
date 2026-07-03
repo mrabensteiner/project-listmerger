@@ -6,7 +6,7 @@
 % 
 %  Created :  31 Mar 2026
 % 
-%  Changed :  23 Jun 2026
+%  Changed :  03 Jul 2026
 % 
 %----------------------------------------------------------------
 
@@ -30,6 +30,7 @@ innovation, like the improvements mentioned as follows.
 
 
 \section{Living HTML}
+
 The Hyper Text Markup Language (HTML) standard was first developed and
 published in the early 1990's by Tim Berners-Lee at CERN and later
 handed over to the new founded World Wide Web Consortium
@@ -44,36 +45,55 @@ publishing browers.
 
 
 \section{Modern CSS}
+
 Along with the HTML modernisation, the Cascading Style Sheets (CSS)
 became a living standard as well \parencite{w3c-css}. CSS is used to
 define to optical style of a website. Modern solutions include for
 example containers queries \parencite{mdn-cssquieries} to differentiate
 between different screen sizes or use styles as selectors, or colour
-mixing functions \parencite{mdn-colorfunctions}.
+mixing functions \parencite{mdn-colorfunctions}. With the evolving
+functionality of CSS queries, more and more use cases can be implemented
+either in CSS or JavaScript, or with selectors interdependent with both
+\parencite{css-states-js}.
 
 
 
 
 \section{Modern JavaScript}
-JavaScript is essential in modern web development for interactivity
+
+JavaScript is essential in modern web development for interactivity and
+essential for frontend and moren and more backend development
 \parencite{shukla-jsfullstack}. It enables client-site computations and
-modify the Document Object Model (DOM), which describes the structure
+modifying the Document Object Model (DOM), which describes the structure
 and content of a web page. It was introduced in 1995, soon available in
 all usual browsers, and is and still today an important component of
 them. As dynamic web pages become more and more popular, it was even
 more necessary to manipulate the content directly on the client.
+The current standard of JavaScript is ECMAScript 2026, the 17th edition
+of ECMA-262 \parencite{ecma2026}.
+
+% TS
+TypeScript is a script language written by Microsoft
+\parencite{typescript}. It is based on JavaScript and extends it with
+type signature and compile-time type checking to better support the
+development of large applications. For production, TypeScript code is
+transpiled to JavaScript. Some concepts like classes were already taken
+over by the ECMA standard and are now available in plain JavaScript.
+
 % Node.js
 With Node.js, first published in 2009, it became more and more popular
 to use JavaScript also as a server-side programming language
 \parencite{nodejs}. JavaScript can be therefore used in the backend as
 well as in the frontend, creating new synergies.
+%
 
 
 
 
-\section{jQuery}
-jQuery is a widley-used frontend framework and reached its peak of usage
-on around 78 \% of all websites tracked in 2022, bus is steadily
+\section{The Fading of jQuery}
+
+jQuery is a still widley-used frontend framework and reached its peak of
+usage on around 78 \% of all websites tracked in 2022, but is steadily
 decreasing since then, with circa 70 \% in March 2026
 \parencite{w3techs-js-statistics}. By time, the outstanding functions of
 jQuery got more and more redundant. Several use cases and
@@ -89,30 +109,33 @@ classic jQuery DOM selection with the {\vname{\$()}} function obsolete.
 
 
 \section{JavaScript Package Managers}
+
 The node package manager (NPM) was introduced in 2009, to make the
 handling with node modules in the development process and their
 publishment among developers more convenient. It is an open source
-project and now in the hands of GitHub \parencite{npm-website}.
+project and now in the hands of GitHub \parencite{npm-website}. Package
+variables and dependencies are defined in the \fname{package.json} file.
 
 PNPM (performant NPM) introduces a more performant approach for package
 managing than NPM \cite{pnpm-website}. Instead of downloading and
 storing dependencies for every project on its own, they are managed
 globally on the system, and symbolic links are created from the project
-to the main storage. That saves time and storage space. Further, PNPM is
-capable of managing different versions of Node. For other package
-managers, a separate Node Version Manager is needed. Disadvantages arise
-when multiple disks are used on a system, as the symlinks used by PNPM
-are not capable of that.
+to the main storage. This saves download time and storage space.
+Further, PNPM is capable of managing different versions of Node. For
+other package managers, a separate Node Version Manager is needed.
+Disadvantages arise when multiple disks are used on a system, as the
+symlinks used by PNPM are not capable of that.
 
 To measure the popularity of package managers, \textcite{maj-article}
-discusses different ways to count the usage. Different ways of downloads
-have the problem of different sources, and packager managers with more
-frequent updates will have higher download counts. The observation of
-the most popular GitHub repositories is considered a meaningful
-measurement. According to the last iteration \cite{maj-repository} and
-compared with the last three years, NPM is steadily used in about two
-third of projects. The usage of Yarn classic has decreased from 29 \% to
-18 \% over the same time frame. PNPM has a stagnant share of about 6 \%.
+discusses different ways to count the usage. Different ways of download
+counting have the problem of different sources, and packager managers
+with more frequent updates will have higher download counts. The
+observation of the most popular GitHub repositories is considered a
+meaningful measurement. According to the last iteration
+\cite{maj-repository} and compared with the last three years, NPM is
+steadily used in about two third of projects. The usage of Yarn classic
+has decreased from 29 \% to 18 \% over the same time frame. PNPM has a
+stagnant share of about 6 \%.
 
 Another currently uprising package manager is bun, which claims to
 install dependencies a few times faster than the tools mentioned before
@@ -124,11 +147,12 @@ and other JavaScript development tools as well.
 
 \section{Mustache Templates}
 \label{sec:mustache}
+
 Mustache is a logic-less template format \parencite{mustache}.
-Characteristic are the double \vname{{{}}} brackets, which are then
-replaced. For example, \vname{{{variable}}} is replaced with the
-value of \vname{variable}. For-each loops and simple if conditions can
-be mocked with Mustache, even though there is no logic in the template.
-Mustache libraries are available for around 50 programming languages,
-including JavaScript, Python, PHP, or C++. It is popular to structure
-small or large parts of content with its template style.
+Characteristic are the double \vname{{{}}} brackets as placeholders. For
+example, \vname{{{variable}}} is replaced with the value of
+\vname{variable}. For-each loops and simple if conditions can be mocked
+with Mustache, even though there is no logic in the template. Mustache
+libraries are available for around 50 programming languages, including
+JavaScript, Python, PHP, or C++. It is popular to structure small or
+large parts of content with its template style.

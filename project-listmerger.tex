@@ -6,7 +6,7 @@
 % 
 %  Created :  20 Feb 2026
 % 
-%  Changed :  02 Jul 2026
+%  Changed :  03 Jul 2026
 % 
 %----------------------------------------------------------------
 
@@ -20,9 +20,9 @@ package is used to render templates during runtime.
 
 Recurring terms in the development are \uiname{move} and \uiname{merge}.
 Moving describes the process of a transferring an item from an
-\uiname{origin list} to the \uiname{mergelist}. A merged item always
-consists of two predecessors. They are either taken from the mergelist
-(merged or moved), or directly taken from the evaluators list. The
+\uiname{origin list} to the \uiname{mergelist}. A merged item has a list
+of its origin items (predecessors). They are either taken from the
+mergelist (merged or moved), or directly taken from the origin list. The
 origin is always tracked, independent whether the item is coming from an
 origin list or the mergelist. The differentiation between moved and
 origin is done, to have a clean and reconstructive merging history.
@@ -30,7 +30,7 @@ origin is done, to have a clean and reconstructive merging history.
 
 \section{Architecture and Files}
 
-The library itself is modularised into several TypeScript files and
+The library itself is modularised into seven TypeScript files and
 compiled with Gulp to a single \fname{.js} file. Minimised and Gzip
 files, as well as a CSS stylesheet are added. ListMerger itself does not
 define its own style, but certain CSS styling rules are highly
@@ -69,8 +69,8 @@ with the DOM.
 An initialisation call is necessary to activate the functionality of the
 library. For this, the function \vname{init.init()} is called from the
 outside. More details on this call are described in
-Section~\ref{sec:libu-init}. This function calls all necessary
-initialising functions of all files.
+Section~\ref{sec:libu-init}. This function call is necessary to
+initialise all functions of all files.
 
 When initialising, a JavaScript object has to be handed over to the
 library in order to build the application. This object needs to contain
@@ -93,11 +93,11 @@ The history is based on a history and a future array. When clicking
 undo/redo, a history item is moved from history to future, or vice
 versa. A history item consists of a keyword for the action, and several
 parameters, to track IDs, positions, arrays and so on, depending on the
-context of the merge keyword. User actions are always tracked with the
+context of the user action. User actions are always tracked with the
 \vname{history.log()} function, to make all actions completely
 reproducible. Depending on the action, different parameters (like IDs,
 arrays, or whole item objects) are stored. For this, the log function
-has a function header with 6 optional parameters:
+has a function header with six optional parameters:
 \begin{samepage}
 \begin{lstlisting}[%
   language=TypeScript,
@@ -152,33 +152,34 @@ section {
 \end{samepage}
 
 
-For a long time, it was necessary to use JavaScript event listeners for
-tab bars in the web. By adding click event listeners to the title, the
+For a time, it was necessary to use JavaScript event listeners for tab
+bars on a website. By adding click event listeners to the title, the
 appearance of the content below in that way can be controlled. The
 \elname{details} HTML element and some CSS adjustments make it possible
 to have tab bars without JavaScript.
 
 The \elname{details} element serves as a container for one item. On
-\elname{summary} element is needed as a child, which is represents the
-title. If no such title element is present, the total is
-\uiname{Details}. By default, a small triangle on the left indicates
-the open/closed status of the content. This status is toggled by
-clicking on the \elname{summary} element. The content does not
-necessarly have to be an element and can also be plain text. To have a
-clear structure, it is still advisable to have an element to give the
-content a better structure, for example with a \elname{section} element.
-With the \vname{open} attribute, the fold out of \elname{details} can be
+\elname{summary} element is needed as a child, which represents the
+title. If no such summary element is present, the title is
+\uiname{Details}. By default, a small triangle on the left indicates the
+open/closed status of the content. This status is toggled by clicking on
+the \elname{summary} element. The content does not necessarily have to
+be an element and can also be plain text. To have a clear structure, it
+is still advisable to have an element to give the content a better
+structure, for example with a \elname{section} element. With the
+\vname{open} attribute, the fold out of \elname{details} can be
 controlled. The \vname{name} attribute can be used to only open one
-\elname{details} box when having several instances.
+\elname{details} box when having several instances with the same
+\vname{name} attribute.
 
-The original purpose of this element is to build Accordions. To use it
+The original purpose of this element is to build accordions. To use it
 for tab bars, some CSS properties need to be applied. These properties
 include:
 \begin{itemize}
-\item \liintro{\elname{container} as flexbox}: This ensure to have the
+\item \liintro{\elname{container} as flexbox}: This ensures to have the
    elements next to each in horizontal alignment.
 
-\item \liintro{\elname{section} with full-width (100\%)}: Below the flex
+\item \liintro{\elname{section} with full width (100\%)}: Below the flex
   container, the summaries should have only as much width as they need,
   but the section below should span across the whole width to break in a
   new line.
@@ -243,12 +244,12 @@ an element, changed for example through scrolling or resizing the window
 position of the \elname{summary} elements, representing the titles of
 the tabs. If the titles are too long for the viewport, the titles would
 break and be represented in more than one line. This is not a suitable
-solution for tabs and they should be controlled by a select box, as
+solution for tabs, and they should be controlled by a select box, as
 described before. Within the observer, the top offset of the first and
 last object are compared, and if they are not the same, the responsive
-solution should be applied. A CSS class (\cssname{.compact} in the
-example) is added to the tab list. The titles can not be simply hidden,
-as this would give the observer an undetermined width and lever its
+solution is applied. A CSS class (\cssname{.compact} in the example) is
+added to the tab list. The titles can not be simply hidden, as this
+would give the observer an undetermined width and lever its
 functionality. Therefore, the titles are made transparent, paddings
 removed, and the height set to \vname{1px}. This makes it practically
 invisible, but leaves the observer functionality intact.
@@ -295,8 +296,8 @@ can be dragged and dropped from the right to the left.
 
 \section{Items}
 
-Items are created with a \elname{details} element. A classname and a
-\cname{data-role} attribute are added from the predfined selectors. The
+Items are created with a \elname{details} element. A class name and a
+\cname{data-role} attribute are added from the predefined selectors. The
 inner part is defined by a template when initialising. All values that
 are defined for the item in the \vname{items} object can be used for
 rendering. Some values are added depending on the current state. These
@@ -320,10 +321,13 @@ can be:
 
 The drag and drop functionality is based on the native HTML Drag and
 Drop API \parencite{mdn-draganddrop} and implemented in the
-\fname{events.ts} file. The listener for dragging is applied to the app
-container. The listener for dropping is applied to the mergedlist only.
-Besides drag and drop, items can also be added using a \uiname{Move}
-button per item, or a \uiname{Move Remaining} button per list.
+\fname{events.ts} file. This enables dragging items from the origin
+lists to the left to the mergelist on the right, as seen in
+Figure~\ref{fig:mergeditems}. The listener for dragging is applied to
+the app container. The listener for dropping is applied to the
+mergelist only. Besides drag and drop, items can also be added using a
+\uiname{Move} button per item, or a \uiname{Move Remaining} button per
+list.
 
 % Dragstart
 On \vname{dragstart}, it is checked whether the item is eligible to be
@@ -377,7 +381,9 @@ strongly depend on the individual implementation. Therefore, the
 \vname{events.edit()} function can be called from the outside with the
 parameters \vname{id}, \vname{key}, and \vname{value}. The ID defines
 the item, whereas the key-value pair is a property of the item. The
-history logging is only triggered when value is different.
+history logging is only triggered when value is different. In the main
+example, an inline editing functionality is implemented, as seen in
+Figure~\ref{fig:edit}.
 % Detaching
 A detach button or link can be added to mergeitems and items that are
 merged to loosen their connection. All attributes from the mergeitem
@@ -477,7 +483,7 @@ Overview of icons made for and used within the library.}
 
 This section covers some noteworthy challenges during the development
 process, that could not completely be satisfied, or just with some
-workarounds, and further tasks.
+workarounds, and possible future tasks.
 
 
 
@@ -485,33 +491,36 @@ workarounds, and further tasks.
 
 One useful feature idea was that the cursor is different when dragging
 an item, depending on whether the item is approaching to be moved to the
-mergelist (moving cursor) or merged into another item (adding cursor).
+mergelist (merging cursor) or merged into another item (adding cursor).
 The \vname{event.datatransfer.dropEffect} property in JavaScript defines
 the visual behaviour of the mouse cursor during a drag event
-\parencite{mdn-dropeffect}. While the \vname{cursor} CSS property offers
-a variety of 36 mouse cursors, in interaction with the operating system
-\parencite{mdn-cursor}, this property is not taken into account as soon
-as a drag event is started. The \vname{dropEffect} has offers a
-selection of only four elements, all equivalent to options for the CSS
-property (\vname{copy}, \vname{move}, \vname{link}, \vname{none}).
+\parencite{mdn-dropeffect}. While the related CSS \vname{cursor}
+property offers a variety of 36 mouse cursors, in interaction with the
+operating system \parencite{mdn-cursor}, this setting is not taken into
+account as soon as a drag event is started. The \vname{dropEffect}
+offers a selection of only four elements, all equivalent to options for
+the CSS property (\vname{copy}, \vname{move}, \vname{link},
+\vname{none}).
 
 Mozilla Firefox does currently not support the change of the cursor, as
 long as the concerning event listener is not changed. In the current
-implementation, the event listener is the same for the mergelist and its
-items. Otherwise, the event listener needs to be reassigned every time
-an item is changed. Google Chrome does basically support the change
-during an event, but at some points a \vname{none} cursor is wrongly
-shown.
+implementation, the event listener is bound to the mergelist and
+therefore the same for the list and its items. Otherwise, the event
+listener needs to be reassigned every time an item is changed. Google
+Chrome does basically support the change during an event, but at some
+points a \vname{none} cursor is wrongly shown.
 
 An alternative to the strict \vname{dropEffect} setting of drag events
 is to rebuild the native drag-and-drop functionality with other mouse
 events. Solutions like this, for example the one of
 \textcite{gunduz-mouseover}, were considered and tried out, but did not
-lead to sufficient results. This browser mechanics is known and
-discussed throughout several discussions and issue reports in the web.
-\parencite{chromium-cursorissue,horowitz-customizecursor} It should not
+lead to sufficient results. This browser mechanic is known and discussed
+throughout several discussions and issue reports in the web
+\parencite{chromium-cursorissue,horowitz-customizecursor}. It should not
 be ruled out that the ability to change the drop effect will eventually
-be made easier by browser vendors in future.
+be made easier by browser vendors in future, and that this possible
+changes can be taken into account for further improvements of this
+library.
 
 
 
@@ -529,11 +538,11 @@ The outer box is removed, the flex bounding box is not valid any more,
 and therefore the inner content scales to maximum, making the scrollbar
 for the whole tab scope, and not just the inner part where the items
 are. Furthermore, accessibility problems associated with this property
-value are mentioned.
+value are mentioned in the documentation.
 
 Different structures for HTML and CSS only tabs, like radio buttons and
 labels \parencite{kliemann-radiotabs} were tried, but led to the same
-problem. Eventually, a JavaScript ResizeObserver
+problem. Eventually, a JavaScript \vname{ResizeObserver}
 \parencite{mdn-resizeobs} is introduced to monitor the tab height, and
 adjust the inner lists height to it.
 

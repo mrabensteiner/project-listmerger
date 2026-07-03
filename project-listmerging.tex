@@ -31,8 +31,8 @@ be beneficial and desirable. The origin lists are for recipes selected
 by the prospective cook. In the merged list, the needed or the already
 available ingredients can be gathered. This highlights overlapping
 ingredients in recipes and helps to depict which recipes can be cooked
-with the available ones or which ones need to be bought. A sketch of
-this example can be seen in Figure~\ref{fig:recipes}.
+with the available ingredients, or which ones need to be bought. A
+sketch of this example can be seen in Figure~\ref{fig:recipes}.
 
 \begin{figure}[tp]
 \centering
@@ -41,7 +41,7 @@ this example can be seen in Figure~\ref{fig:recipes}.
 \caption[Sketch of a Recipe Overview]{%
 In this example, the ingredients of recipes that are already to hand can
 be put on the merge list, to emphasise ingredients that need to be
-bought first.
+bought before cooking.
 \imgcredit{Sketch by Martin Rabensteiner using Excalidraw.}
 }
 \label{fig:recipes}
@@ -70,14 +70,15 @@ report.
 
 
 \section{Related Work}
-For the last mentioned application case, \textcite{loitzl-hem}
+For the last mentioned application case, Martin \textcite{loitzl-hem}
 introduces within the Heuristic Evaluation Manager (HEM) a merging
 interface to merge usability issues, as seen in
 Figure~\ref{fig:hem-merging}. Findings can be selected for merging with
 the \uiname{+} button. Red indicates currently selected findings.
 Darkgrey findings are already added to the merge list. This is done with
 inline JavaScript calls by pressing a button, and without drag-and-drop
-functions.
+functions. After clicking \uiname{Add Finding}, the selected findings
+are combined into a new one.
 
 \begin{figure}[tp]
 \centering
@@ -92,10 +93,13 @@ Darkgrey findings are already added to the merge list.
 \label{fig:hem-merging}
 \end{figure}
 
-The functionality of Kanban boards, like the issue tracking app Heurio
-in Figure~\ref{fig:tool-heurio-board} seems similar, but the columns
-represent different stages or filters, and the possibility to merge is
-not designated.
+Another tool for issue tracking is \textcite{heurio}, which visualizes
+its findings like a Kanban board, as seen in
+Figure~\ref{fig:tool-heurio-board}. The columns represent usually stages
+in the process. In Heurio, they can be the severity rating, the authors,
+or other filters as well. The possibility to merge is not designated,
+but one column can be used as aggregated list to drag and drop
+individual findings into.
 
 \begin{figure}[tp]
 \centering
